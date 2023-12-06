@@ -1,0 +1,516 @@
+Index: main.py
+===================================================================
+diff --git a/main.py b/main.py
+deleted file mode 100644
+--- a/main.py	
++++ /dev/null	
+@@ -1,16 +0,0 @@
+-# This is a sample Python script.
+-
+-# Press Shift+F10 to execute it or replace it with your code.
+-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+-
+-
+-def print_hi(name):
+-    # Use a breakpoint in the code line below to debug your script.
+-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+-
+-
+-# Press the green button in the gutter to run the script.
+-if __name__ == '__main__':
+-    print_hi('PyCharm')
+-
+-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/vcs.xml	
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/NewWorldBot.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/NewWorldBot.iml b/.idea/NewWorldBot.iml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/NewWorldBot.iml	
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module version="4">
++  <component name="PyDocumentationSettings">
++    <option name="format" value="PLAIN" />
++    <option name="myDocStringFormat" value="Plain" />
++  </component>
++</module>
+\ No newline at end of file
+Index: .idea/inspectionProfiles/profiles_settings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/inspectionProfiles/profiles_settings.xml b/.idea/inspectionProfiles/profiles_settings.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/inspectionProfiles/profiles_settings.xml	
+@@ -0,0 +1,6 @@
++<component name="InspectionProjectProfileManager">
++  <settings>
++    <option name="USE_PROJECT_PROFILE" value="false" />
++    <version value="1.0" />
++  </settings>
++</component>
+\ No newline at end of file
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+--- /dev/null	
++++ b/.idea/.gitignore	
+@@ -0,0 +1,3 @@
++# Default ignored files
++/shelf/
++/workspace.xml
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/modules.xml	
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/NewWorldBot.iml" filepath="$PROJECT_DIR$/.idea/NewWorldBot.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/misc.xml	
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="Black">
++    <option name="sdkName" value="Python 3.10 (NewWorldBot)" />
++  </component>
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10 (NewWorldBot)" project-jdk-type="Python SDK" />
++</project>
+\ No newline at end of file
+Index: MainClasses/Database/database.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/MainClasses/Database/database.py b/MainClasses/Database/database.py
+new file mode 100644
+--- /dev/null	
++++ b/MainClasses/Database/database.py	
+@@ -0,0 +1,18 @@
++import mysql.connector
++
++class Database:
++    """Класс для работы с базой данных"""
++    def __init__(self):
++        # self.host = '192.168.0.125'
++        self.host = '192.168.1.71'
++        self.user = 'root'
++        # self.password = 'BigBot'
++        self.password = 'root'
++
++        self.connection = mysql.connector.connect(host=self.host, user=self.user, password=self.password)
++        self.connection.autocommit = True
++        self.cursor = self.connection.cursor()
++
++    def make_query(self, query):
++        """Функция для того чтобы сделать прямой запрос к базе данных"""
++        self.cursor.execute(query)
+\ No newline at end of file
+Index: TraderBot/main.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/TraderBot/main.py b/TraderBot/main.py
+new file mode 100644
+--- /dev/null	
++++ b/TraderBot/main.py	
+@@ -0,0 +1,58 @@
++import time
++
++from MainClasses.MouseAndKeyboard.mouse_actions import Mouse
++from MainClasses.Windows.windows import Windows
++from MainClasses.Image.image import Image
++
++windows = Windows()
++mouse = Mouse()
++image = Image()
++
++cord = (615, 315, 1780, 400)
++AMOUNT_OF_PRODUCTS = 9
++
++
++def start():
++    windows.switch_windows(search_products)
++
++
++def search_products(hwnd):
++    mouse.move_and_click(125, 600)
++    mouse.move_and_click(300, 640)
++    mouse.move_and_click(250, 435)
++    parse_products()
++
++
++def parse_products():
++    num = 0
++    mouse.move(1800, 288)
++    for a in range(3):
++        time.sleep(2)
++        if a < 2:
++
++            for i in range(AMOUNT_OF_PRODUCTS):
++                num += 1
++                image.take_screenshot(f"TraderBot\\images\\screenshots\\price{num}.png",
++                                 (985, 315 + 77 * i, 1145, 400 + 77 * i))
++                image.take_screenshot(f"TraderBot\\images\\screenshots\\avail{num}.png",
++                                 (1690, 315 + 77 * i, 1790, 400 + 77 * i))
++                if i == 8:
++                    mouse.scroll_down(13)
++        if a == 2:
++            for b in range(2):
++                num += 1
++                mouse.scroll_down(2)
++                image.take_screenshot(f"TraderBot\\images\\screenshots\\price{num}.png",
++                                      (985, 900 + 77 * b, 1145, 985 + 77 * b))
++                image.take_screenshot(f"TraderBot\\images\\screenshots\\avail{num}.png",
++                                      (1690, 900 + 77 * b, 1790, 985 + 77 * b))
++    write_in_sheets()
++
++
++def write_in_sheets():
++    for i in range(1, 21):
++        print(image.image_to_string(f"TraderBot\\images\\screenshots\\price{i}.png", True), f"Цена {i}")
++        print(image.image_to_string(f"TraderBot\\images\\screenshots\\avail{i}.png", True), f"Количество {i}")
++
++#write_in_sheets()
++start()
+Index: MainClasses/GoogleSheets/google_sheets.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/MainClasses/GoogleSheets/google_sheets.py b/MainClasses/GoogleSheets/google_sheets.py
+new file mode 100644
+--- /dev/null	
++++ b/MainClasses/GoogleSheets/google_sheets.py	
+@@ -0,0 +1,25 @@
++import gspread
++
++
++class GoogleSheets:
++    """Класс для работы с гугл таблицами"""
++
++    def __init__(self, SPREADSHEET_URL, credentials):
++        self.SPREADSHEET_URL = SPREADSHEET_URL
++        self.credentials = credentials
++
++        self.gs = gspread.service_account(self.credentials)
++        self.sh = self.gs.open_by_url(self.SPREADSHEET_URL)
++        self.worksheet = self.sh.sheet1
++
++    def write_google(self, **kwargs):
++        """Фуцнкия для записи в гугл таблицу данных\n
++        Сюда нужно указать словарь который необходимо записать в таблицу. В таком виде\n
++        {Клетка(или диапазон клеток) : значение этой клетки}"""
++        for key, value in kwargs.items():
++            self.worksheet.update(key, value)
++
++    def get_value_from_cell(self, cell):
++        """Функция чтобы получить значение из определенной клетки(или дипазона клеток)"""
++        value = self.worksheet.get(cell)
++        return value
+Index: MainClasses/Image/image.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/MainClasses/Image/image.py b/MainClasses/Image/image.py
+new file mode 100644
+--- /dev/null	
++++ b/MainClasses/Image/image.py	
+@@ -0,0 +1,82 @@
++from PIL import Image as pil
++import PIL.ImageGrab
++import numpy as np
++import cv2
++import pytesseract
++pytesseract.pytesseract.tesseract_cmd = r"E:\programs\teseract\tesseract.exe"
++
++
++class Image:
++    """Класс для работы с изображениями"""
++    def matching(self, main_image_name, template_image_name, need_for_taking_screenshot=False, threshold=0.8,
++                 func=None, area_of_screenshot=None):
++        """Функция для сравнения 2ух изображений\n
++        main_image_name - название основного изображения\n
++        template_image_name - названия шаблона для сравнения\n
++        need_for_taking_screenshot - нужно ли делать скриншот\n
++        threshold - минимальный уровень совпадения 2ух изображений\n
++        func - нужно ли возвращать координаты\n
++        area_of_screenshot - область в которой нужно сделать скриншот. (указывать как тапл). Если оставить None, то будет сделан скриншот всего экрана
++        """
++        if need_for_taking_screenshot:
++            if area_of_screenshot:
++                PIL.ImageGrab.grab(bbox=area_of_screenshot).save(main_image_name)
++            else:
++                PIL.ImageGrab.grab().save(main_image_name)
++
++        img_rgb = cv2.imread(main_image_name)
++        template = cv2.imread(template_image_name)
++
++        res = cv2.matchTemplate(img_rgb, template, cv2.TM_CCOEFF_NORMED)
++        loc = np.where(res >= threshold)
++
++        if func is None:
++            for pt in zip(*loc[::-1]):
++                print("Найдено совпадение")
++                return True
++            return False
++
++        for pt in zip(*loc[::-1]):
++            return pt
++        return False
++
++    def take_screenshot(self, image_name, area_of_screenshot):
++        """Функция для создания скриншота\n
++        image_name - название изображения скриншота\n
++        area_of_screenshot - область скриншота(указывать как тапл)
++        """
++        if area_of_screenshot:
++            PIL.ImageGrab.grab(bbox=area_of_screenshot).save(image_name)
++        else:
++            PIL.ImageGrab.grab().save(image_name)
++
++    def image_to_string(self, image_name, is_digits):
++        """Функция для перевода картники в строку\n
++        image_name - название изображения с которого нужно получить текст\n
++        is_digits - True если с картинки нужно получить только числа, False если нужно получить еще и текст
++        """
++        if is_digits is True:
++            text = pytesseract.image_to_string(image_name, config='--psm 11 -c tessedit_char_whitelist=0123456789/,.')
++            return text
++        text = pytesseract.image_to_string(image_name, lang='eng', config='--psm 3')
++        return text
++
++    def image_to_string_custom_confing(self, image_name, config):
++        """Фуцнкия для получения текста с картинки с использованием своего запроса к Tesseract"""
++        text = pytesseract.image_to_string(image_name, config=config)
++        return text
++
++    def get_main_color(self, file):
++        """Функция для получения цвета который чаще всего представлен на картинке\n
++        file - название изображения на котором нужно найти цвет
++        """
++        img = pil.open(file)
++        colors = img.getcolors(256)  # put a higher value if there are many colors in your image
++        max_occurence, most_present = 0, 0
++        try:
++            for c in colors:
++                if c[0] > max_occurence:
++                    (max_occurence, most_present) = c
++            return most_present
++        except TypeError:
++            raise Exception("Too many colors in the image")
+\ No newline at end of file
+Index: MainClasses/MouseAndKeyboard/keyboard_actions.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/MainClasses/MouseAndKeyboard/keyboard_actions.py b/MainClasses/MouseAndKeyboard/keyboard_actions.py
+new file mode 100644
+--- /dev/null	
++++ b/MainClasses/MouseAndKeyboard/keyboard_actions.py	
+@@ -0,0 +1,22 @@
++import pyautogui
++
++
++class Keyboard:
++    """Класс для работы с клавиатурой"""
++
++    def __init__(self):
++        self.TYPE_INTERVAL = 0.1
++
++    def press_button(self, button):
++        """Фуцнкия для нажатия клавиши\n
++        button - клавиша
++        """
++        pyautogui.press(button)
++
++    def esc(self):
++        """Функция для нажатия клавиши esc"""
++        pyautogui.press('esc')
++
++    def type(self, text):
++        """Функция для того чтобы напечатать текст"""
++        pyautogui.write(text, self.TYPE_INTERVAL)
+Index: MainClasses/MouseAndKeyboard/mouse_actions.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/MainClasses/MouseAndKeyboard/mouse_actions.py b/MainClasses/MouseAndKeyboard/mouse_actions.py
+new file mode 100644
+--- /dev/null	
++++ b/MainClasses/MouseAndKeyboard/mouse_actions.py	
+@@ -0,0 +1,44 @@
++import pyautogui
++
++
++class Mouse:
++    """Класс для работы с мышкой"""
++    def __init__(self):
++        self.SPEED = 0.5
++
++    def move_and_click(self, x, y):
++        """Функция чтобы навестись на координаты на экране и кликнуть на это точку"""
++        self.move(x, y)
++        self.click()
++
++    def move(self, x, y):
++        """Функция чтобы переместить курсор на заданные координаты"""
++        pyautogui.moveTo(x, y, self.SPEED)
++
++    def move_instantly(self, x, y):
++        """Функция чтобы мгновенно переместить курсор на нужные координаты"""
++        pyautogui.moveTo(x, y, 0)
++
++    def click(self):
++        """Функция чтобы сделать клик мышкой"""
++        pyautogui.click()
++
++    def drag(self, x, y):
++        """Функция для того чтобы переместить мышку на нужные координаты с зажатой левой кнопкой"""
++        pyautogui.mouseDown(button='left')
++        self.move(x, y)
++        pyautogui.mouseUp(button='left')
++
++    def scroll_down(self, amount):
++        """Функция для того прокрутить колесико мышки вниз\n
++        amount - колличество прокруток
++        """
++        amount *= 100
++        pyautogui.scroll(-amount)
++
++    def scroll_up(self, amount):
++        """Функция для того что прокрутить колесико мышки вверх
++        amount - колличество прокруток
++        """
++        amount *= 100
++        pyautogui.scroll(amount)
+\ No newline at end of file
+Index: MainClasses/Telegram/telegram.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/MainClasses/Telegram/telegram.py b/MainClasses/Telegram/telegram.py
+new file mode 100644
+--- /dev/null	
++++ b/MainClasses/Telegram/telegram.py	
+@@ -0,0 +1,12 @@
++import telebot
++
++class Telegram:
++    """Класс для работы с тг"""
++    def __init__(self):
++        self.TG_USER_ID = 123
++        self.TG_API_KEY = 123
++        self.BOT = telebot.TeleBot(self.TG_API_KEY)
++
++    def send_message(self, msg):
++        """Функция для отпправки сообщения в тг"""
++        self.BOT.send_message(self.TG_USER_ID, msg)
+Index: MainClasses/Windows/windows.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/MainClasses/Windows/windows.py b/MainClasses/Windows/windows.py
+new file mode 100644
+--- /dev/null	
++++ b/MainClasses/Windows/windows.py	
+@@ -0,0 +1,46 @@
++import win32gui
++import win32com.client
++import win32con
++
++
++class Windows:
++    """Класс для работы с окнами"""
++
++    def __init__(self):
++        self.NAME_OF_WINDOW = 'New World'
++
++    def switch_windows(self, func):
++        """Функция для переключения окон\n
++        func - функция которую нужно выполнять после переключения окна
++        """
++        shell = win32com.client.Dispatch("WScript.Shell")
++
++        windows_list = self.__find_windows()
++
++        print('Спиок открытых окок с НВ', windows_list)
++
++        if len(windows_list) > 0:
++            for window in windows_list:
++                for i in range(3):
++                    shell.SendKeys('%')
++                win32gui.ShowWindow(window, win32con.SW_RESTORE)
++                win32gui.SetForegroundWindow(window)
++
++                func(window)
++
++
++
++    def __find_windows(self):
++        def __is_toplevel(hwnd):
++            return win32gui.GetParent(hwnd) == 0 and win32gui.IsWindowVisible(hwnd)
++
++        hwnd_list = []
++
++        win32gui.EnumWindows(lambda hwnd, param: param.append(hwnd) if __is_toplevel(hwnd) else None, hwnd_list)
++
++        lst_processes = [hwnd for hwnd in hwnd_list if self.NAME_OF_WINDOW in win32gui.GetWindowText(hwnd)]
++
++        if lst_processes:
++            return lst_processes
++        else:
++            return None
+\ No newline at end of file
