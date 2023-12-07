@@ -1,22 +1,17 @@
 import pyautogui
 
+TYPE_INTERVAL = 0.1
 
-class Keyboard:
-    """Класс для работы с клавиатурой"""
+def press_button(button):
+    """Фуцнкия для нажатия клавиши\n
+    button - клавиша
+    """
+    pyautogui.press(button)
 
-    def __init__(self):
-        self.TYPE_INTERVAL = 0.1
+def esc():
+    """Функция для нажатия клавиши esc"""
+    pyautogui.press('esc')
 
-    def press_button(self, button):
-        """Фуцнкия для нажатия клавиши\n
-        button - клавиша
-        """
-        pyautogui.press(button)
-
-    def esc(self):
-        """Функция для нажатия клавиши esc"""
-        pyautogui.press('esc')
-
-    def type(self, text):
-        """Функция для того чтобы напечатать текст"""
-        pyautogui.write(text, self.TYPE_INTERVAL)
+def type(text):
+    """Функция для того чтобы напечатать текст"""
+    pyautogui.write(text, self.TYPE_INTERVAL)
