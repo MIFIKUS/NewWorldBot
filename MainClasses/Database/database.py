@@ -6,7 +6,7 @@ user = 'root'
 #password = 'BigBot'
 password = 'root'
 
-connection = mysql.connector.connect(host=self.host, user=self.user, password=self.password)
+connection = mysql.connector.connect(host=host, user=user, password=password)
 connection.autocommit = True
 
 cursor = self.connection.cursor()
