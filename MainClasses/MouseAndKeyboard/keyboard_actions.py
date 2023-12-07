@@ -1,5 +1,6 @@
 import pyautogui
 
+
 class Keyboard:
     """Класс для работы с клавиатурой"""
 

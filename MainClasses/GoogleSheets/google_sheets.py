@@ -1,5 +1,6 @@
 import gspread
 
+
 class GoogleSheets:
     """Класс для работы с гугл таблицами"""
 
@@ -22,4 +23,3 @@ class GoogleSheets:
         """Функция чтобы получить значение из определенной клетки(или дипазона клеток)"""
         value = self.worksheet.get(cell)
         return value
-    

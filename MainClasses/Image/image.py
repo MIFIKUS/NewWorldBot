@@ -3,6 +3,8 @@ import PIL.ImageGrab
 import numpy as np
 import cv2
 import pytesseract
+pytesseract.pytesseract.tesseract_cmd = r"E:\programs\teseract\tesseract.exe"
+
 
 class Image:
     """Класс для работы с изображениями"""
@@ -38,7 +40,7 @@ class Image:
             return pt
         return False
 
-    def take_screenshot(self, image_name, area_of_screenshot=None):
+    def take_screenshot(self, image_name, area_of_screenshot):
         """Функция для создания скриншота\n
         image_name - название изображения скриншота\n
         area_of_screenshot - область скриншота(указывать как тапл)
@@ -54,9 +56,9 @@ class Image:
         is_digits - True если с картинки нужно получить только числа, False если нужно получить еще и текст
         """
         if is_digits is True:
-            text = pytesseract.image_to_string(image_name, config='--psm 11 -c tessedit_char_whitelist=0123456789/')
+            text = pytesseract.image_to_string(image_name, config='--psm 11 -c tessedit_char_whitelist=0123456789/,.')
             return text
-        text = pytesseract.image_to_string(image_name, lang='rus', config='--psm 3')
+        text = pytesseract.image_to_string(image_name, lang='eng', config='--psm 3')
         return text
 
     def image_to_string_custom_confing(self, image_name, config):
