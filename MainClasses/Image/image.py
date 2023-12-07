@@ -73,3 +73,22 @@ def get_main_color(file):
         return most_present
     except TypeError:
         raise Exception("Too many colors in the image")
+
+def delete_all_colors_except_one(file: str, colorMin_list: list, colorMax_list: list):
+    """Функция для удаления всех цветов на картинке кроме указанного\n
+    file - имя файла\n
+    colorMin_list - Минимальный порог цвета который нужно сохранить\n
+    colorMax_list - Максимальный порог цвета который нужно сохранить
+    """
+    img = cv2.imread(file)
+
+    colorMin = np.array(colorMin_list, np.uint8)
+    colorMax = np.array(colorMax_list, np.uint8)
+
+    RGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    mask = cv2.inRange(RGB, colorMin, colorMax)
+
+    inverse_cachement_mask = cv2.bitwise_not(mask)
+    img[inverse_cachement_mask > 0] = [0, 0, 0]
+
+    cv2.imwrite(file, img)
