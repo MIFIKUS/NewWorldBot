@@ -4,13 +4,10 @@ from MainClasses.Image.image import Image
 from MainClasses.GoogleSheets.google_sheets import GoogleSheets
 
 import time
-import json
 
 
-with open("services_files\\credentials.json", 'r', encoding='utf-8') as credentials:
-    credentials_data = json.load(credentials)
-
-google_sheets = GoogleSheets("https://docs.google.com/spreadsheets/d/1nFUIPW6nUTc5CfMroHsCCKzlOG4-9rEZGVmSHc9zMog/edit#gid=0", credentials_data.get(""))
+google_sheets = GoogleSheets("https://docs.google.com/spreadsheets/d/1nFUIPW6nUTc5CfMroHsCCKzlOG4-9rEZGVmSHc9zMog/edit#gid=0",
+                             "services_files\\credentials.json")
 windows = Windows()
 mouse = Mouse()
 image = Image()
