@@ -80,3 +80,17 @@ class Image:
             return most_present
         except TypeError:
             raise Exception("Too many colors in the image")
+    def delete_all_colors_except_one(self, file: str, colorMin_list: list, colorMax_list: list):
+        """Функция для удаления всех цветов с картинки кроме одного"""
+        im = cv2.imread(file)
+
+        colorMin = np.array(colorMin_list, np.uint8)
+        colorMax = np.array(colorMax_list, np.uint8)
+
+        RGB  = cv2.cvtColor(im,cv2.COLOR_BGR2RGB)
+        mask = cv2.inRange(RGB, colorMin, colorMax)
+
+        inverse_cachement_mask = cv2.bitwise_not(mask)
+        im[inverse_cachement_mask>0] = [0, 0, 0]
+
+        cv2.imwrite(file, im)
