@@ -12,12 +12,14 @@ class GoogleSheets:
         self.sh = self.gs.open_by_url(self.SPREADSHEET_URL)
         self.worksheet = self.sh.sheet1
 
-    def write_google(self, **kwargs):
+    def write_google(self, data):
         """Фуцнкия для записи в гугл таблицу данных\n
         Сюда нужно указать словарь который необходимо записать в таблицу. В таком виде\n
         {Клетка(или диапазон клеток) : значение этой клетки}"""
-        for key, value in kwargs.items():
+        for key, value in data.items():
+
             self.worksheet.update(key, value)
+
 
     def get_value_from_cell(self, cell):
         """Функция чтобы получить значение из определенной клетки(или дипазона клеток)"""
