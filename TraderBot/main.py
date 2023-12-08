@@ -57,9 +57,9 @@ def parse_products(main_name, name):
             for i in range(AMOUNT_OF_PRODUCTS):
                 num += 1
                 image.take_screenshot(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price{num}.png",
-                                 (985, 315 + 77 * i, 1145, 400 + 77 * i))
+                                 (995, 315 + 77 * i, 1135, 400 + 77 * i))
                 image.take_screenshot(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\avail{num}.png",
-                                 (1690, 315 + 77 * i, 1790, 400 + 77 * i))
+                                 (1700, 315 + 77 * i, 1780, 400 + 77 * i))
                 if i == 8:
                     mouse.scroll_down(13)
         if a == 2:
@@ -68,9 +68,9 @@ def parse_products(main_name, name):
                 num += 1
                 mouse.scroll_down(2)
                 image.take_screenshot(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price{num}.png",
-                                      (985, 900 + 77 * b, 1145, 985 + 77 * b))
+                                      (995, 900 + 77 * b, 1135, 985 + 77 * b))
                 image.take_screenshot(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\avail{num}.png",
-                                      (1690, 900 + 77 * b, 1790, 985 + 77 * b))
+                                      (1700, 900 + 77 * b, 1780, 985 + 77 * b))
 
     mouse.move_and_click(260, 310)
     write_in_sheets(main_name, name)
@@ -86,9 +86,9 @@ def write_in_sheets(main_name, name):
     for i in range(1, 21):
 
         image.delete_all_colors_except_one(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price{i}.png",
-                                           [106, 96, 79], [176, 166, 150])
+                                           [96, 86, 69], [166, 156, 140])
         image.delete_all_colors_except_one(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\avail{i}.png",
-                                           [106, 96, 79], [176, 166, 150])
+                                           [96, 86, 69], [166, 156, 140])
         price = image.image_to_string(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price{i}.png",
                                       True)
         avail = image.image_to_string(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\avail{i}.png",
