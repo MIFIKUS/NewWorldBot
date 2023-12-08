@@ -1,0 +1,17 @@
+{
+  "master": {
+    "host": "192.168.0.125",
+    "user": "root",
+    "password": "BigBot"
+  },
+  "dev_Vladimir": {
+    "host": "192.168.1.71",
+    "user": "root",
+    "password": "root"
+  },
+  "dev_Sergey": {
+    "host": "192.168.1.71",
+    "user": "root",
+    "password": "root"
+  }
+}

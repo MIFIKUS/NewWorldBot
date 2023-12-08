@@ -1,9 +1,16 @@
-import time
-
 from MainClasses.MouseAndKeyboard.mouse_actions import Mouse
 from MainClasses.Windows.windows import Windows
 from MainClasses.Image.image import Image
+from MainClasses.GoogleSheets.google_sheets import GoogleSheets
 
+import time
+import json
+
+
+with open("services_files\\credentials.json", 'r', encoding='utf-8') as credentials:
+    credentials_data = json.load(credentials)
+
+google_sheets = GoogleSheets("https://docs.google.com/spreadsheets/d/1nFUIPW6nUTc5CfMroHsCCKzlOG4-9rEZGVmSHc9zMog/edit#gid=0", credentials_data.get(""))
 windows = Windows()
 mouse = Mouse()
 image = Image()
@@ -40,6 +47,7 @@ def parse_products():
                     mouse.scroll_down(13)
         if a == 2:
             for b in range(2):
+
                 num += 1
                 mouse.scroll_down(2)
                 image.take_screenshot(f"TraderBot\\images\\screenshots\\price{num}.png",
@@ -51,8 +59,10 @@ def parse_products():
 
 def write_in_sheets():
     for i in range(1, 21):
-        print(image.image_to_string(f"TraderBot\\images\\screenshots\\price{i}.png", True), f"Цена {i}")
-        print(image.image_to_string(f"TraderBot\\images\\screenshots\\avail{i}.png", True), f"Количество {i}")
+        price = image.image_to_string(f"TraderBot\\images\\screenshots\\price{i}.png", True), f"Цена {i}"
+        avail = image.image_to_string(f"TraderBot\\images\\screenshots\\avail{i}.png", True), f"Количество {i}"
+        google_sheets
+
 
 #write_in_sheets()
 start()
