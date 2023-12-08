@@ -12,6 +12,8 @@ windows = Windows()
 mouse = Mouse()
 image = Image()
 
+
+categories = {{"Refined Wood"}}
 cord = (615, 315, 1780, 400)
 AMOUNT_OF_PRODUCTS = 9
 
@@ -55,11 +57,14 @@ def parse_products():
 
 
 def write_in_sheets():
+
     for i in range(1, 21):
+        cell_num = i + 1
         price = image.image_to_string(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price{i}.png", True)
         avail = image.image_to_string(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\avail{i}.png", True)
-        google_sheets.write_google({f"C{i}": price})
-        google_sheets.write_google({f"D{i}": avail})
+        google_sheets.write_google({f"C{cell_num}": price})
+        google_sheets.write_google({f"D{cell_num}": avail})
+
 
 
 write_in_sheets()
