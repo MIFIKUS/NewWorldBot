@@ -1,0 +1,15 @@
+{
+  "Refined woods": {
+    "cords": [245, 430],
+    "categories":
+    {
+        "Timber": [210, 440],
+        "Lumber": [210, 500],
+        "Wurdwood Planks": [210, 555],
+        "Ironwood Planks": [210, 620],
+        "Glittering Ebony": [210, 680],
+        "Runewood Planks": [210, 740],
+        "Prismatic Planks": [210, 800]
+    }
+  }
+}
