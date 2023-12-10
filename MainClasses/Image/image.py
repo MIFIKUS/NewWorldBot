@@ -80,6 +80,7 @@ class Image:
             return most_present
         except TypeError:
             raise Exception("Too many colors in the image")
+
     def delete_all_colors_except_one(self, file: str, colorMin_list: list, colorMax_list: list):
         """Функция для удаления всех цветов с картинки кроме одного"""
         im = cv2.imread(file)

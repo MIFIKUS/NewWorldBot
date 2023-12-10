@@ -11,5 +11,18 @@
         "Runewood Planks": [210, 740],
         "Prismatic Planks": [210, 800]
     }
+  },
+  "Cloth": {
+    "cords": [210, 500],
+    "categories":
+    {
+        "Linen": [210, 440],
+        "Sateen": [210, 500],
+        "Silk": [210, 555],
+        "Infused Silk": [210, 620],
+        "Phoenixweave": [210, 680],
+        "Spinweave Cloth": [210, 740],
+        "Prismatic Cloth": [210, 800]
+    }
   }
 }

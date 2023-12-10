@@ -28,7 +28,7 @@ def start():
 
 
 def search_products(hwnd):
-    time.sleep(1)
+    time.sleep(2)
     mouse.move_and_click(125, 600)
     time.sleep(1)
     mouse.move_and_click(300, 640)
@@ -45,11 +45,24 @@ def search_products(hwnd):
             time.sleep(1)
             mouse.move_and_click(sub_category_cords[0], sub_category_cords[1])
             parse_products(i, sub_category_name)
+        mouse.move_and_click(260, 310)
 
 
 def parse_products(main_name, name):
-    num = 0
     mouse.move(1800, 288)
+    time.sleep(1.5)
+    image.take_screenshot("E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\arrow.png",
+                          (1785, 211, 1815, 240))
+    color = image.get_main_color("E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\arrow.png")
+
+    if 0 <= color[0] <= 20 and 0 <= color[1] <= 20 and 0 <= color[2] <= 20:
+        parse_if_20(main_name, name)
+    else:
+        mouse.move_and_click(260, 310)
+
+
+def parse_if_20(main_name, name):
+    num = 0
     for a in range(3):
         time.sleep(3)
         if a < 2:
@@ -57,20 +70,22 @@ def parse_products(main_name, name):
             for i in range(AMOUNT_OF_PRODUCTS):
                 num += 1
                 image.take_screenshot(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price{num}.png",
-                                 (995, 315 + 77 * i, 1135, 400 + 77 * i))
+                                      (985, 330 + 77 * i, 1145, 390 + 77 * i))
                 image.take_screenshot(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\avail{num}.png",
-                                 (1700, 315 + 77 * i, 1780, 400 + 77 * i))
+                                      (1690, 330 + 77 * i, 1790, 390 + 77 * i))
                 if i == 8:
+                    time.sleep(1)
                     mouse.scroll_down(13)
         if a == 2:
             for b in range(2):
 
                 num += 1
+                time.sleep(1)
                 mouse.scroll_down(2)
                 image.take_screenshot(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price{num}.png",
-                                      (995, 900 + 77 * b, 1135, 985 + 77 * b))
+                                      (985, 910 + 77 * b, 1135, 975 + 77 * b))
                 image.take_screenshot(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\avail{num}.png",
-                                      (1700, 900 + 77 * b, 1780, 985 + 77 * b))
+                                      (1690, 910 + 77 * b, 1780, 975 + 77 * b))
 
     mouse.move_and_click(260, 310)
     write_in_sheets(main_name, name)
@@ -79,24 +94,28 @@ def parse_products(main_name, name):
 def write_in_sheets(main_name, name):
     global cell_num
     global end_sell
+
     price_list = []
     avail_list = []
     main_name_list = []
     name_list = []
+
     for i in range(1, 21):
 
         image.delete_all_colors_except_one(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price{i}.png",
-                                           [96, 86, 69], [166, 156, 140])
+                                           [56, 46, 29], [186, 176, 160])
         image.delete_all_colors_except_one(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\avail{i}.png",
-                                           [96, 86, 69], [166, 156, 140])
+                                           [56, 46, 29], [186, 176, 160])
         price = image.image_to_string(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price{i}.png",
                                       True)
         avail = image.image_to_string(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\avail{i}.png",
                                       True)
+
         price_list.append([price])
         avail_list.append([avail])
         main_name_list.append([main_name])
         name_list.append([name])
+
         end_sell += 1
 
     google_sheets.write_google({f"A{cell_num}:A{end_sell+1}": main_name_list})
@@ -106,6 +125,9 @@ def write_in_sheets(main_name, name):
     cell_num = end_sell + 1
 
 
+
 #write_in_sheets("Refined woods", "Timber")
 start()
 #search_products(None)
+
+
