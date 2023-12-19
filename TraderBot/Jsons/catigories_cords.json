@@ -1,28 +1,207 @@
 {
   "Refined woods": {
-    "cords": [245, 430],
-    "categories":
-    {
-        "Timber": [210, 440],
-        "Lumber": [210, 500],
-        "Wurdwood Planks": [210, 555],
-        "Ironwood Planks": [210, 620],
-        "Glittering Ebony": [210, 680],
-        "Runewood Planks": [210, 740],
-        "Prismatic Planks": [210, 800]
+    "cords": [
+      245,
+      430
+    ],
+    "categories": {
+      "Timber": [
+        210,
+        440
+      ],
+      "Lumber": [
+        210,
+        500
+      ],
+      "Wurdwood Planks": [
+        210,
+        555
+      ],
+      "Ironwood Planks": [
+        210,
+        620
+      ],
+      "Glittering Ebony": [
+        210,
+        680
+      ],
+      "Runewood Planks": [
+        210,
+        740
+      ],
+      "Prismatic Planks": [
+        210,
+        800
+      ]
     }
   },
-  "Cloth": {
-    "cords": [210, 500],
-    "categories":
-    {
-        "Linen": [210, 440],
-        "Sateen": [210, 500],
-        "Silk": [210, 555],
-        "Infused Silk": [210, 620],
-        "Phoenixweave": [210, 680],
-        "Spinweave Cloth": [210, 740],
-        "Prismatic Cloth": [210, 800]
-    }
-  }
+
+    "Cloth": {
+      "cords": [
+        210,
+        500
+      ],
+      "categories": {
+        "Linen": [
+          210,
+          440
+        ],
+        "Sateen": [
+          210,
+          500
+        ],
+        "Silk": [
+          210,
+          555
+        ],
+        "Infused Silk": [
+          210,
+          620
+        ],
+        "Phoenixweave": [
+          210,
+          680
+        ],
+        "Spinweave Cloth": [
+          210,
+          740
+        ],
+        "Prismatic Cloth": [
+          210,
+          800
+        ]
+      }
+    },
+      "Refined Stone": {
+        "cords": [
+          210,
+          560
+        ],
+        "categories": {
+          "Stone Block": [
+            210,
+            440
+          ],
+          "Stone Brick": [
+            210,
+            500
+          ],
+          "Lodestone Brick": [
+            210,
+            555
+          ],
+          "Obsidian Voidstone": [
+            210,
+            620
+          ],
+          "Runestone": [
+            210,
+            680
+          ],
+          "Runic Voidstone": [
+            210,
+            740
+          ],
+          "Prismatic Block": [
+            210,
+            800
+          ]
+        }
+      },
+        "Ingot": {
+          "cords": [
+            210,
+            620
+          ],
+          "categories": {
+            "Iron Ingot": [
+              210,
+              440
+            ],
+            "Steel Ingot": [
+              210,
+              500
+            ],
+            "Starmetal Ingot": [
+              210,
+              555
+            ],
+            "Orichalcum Ingot": [
+              210,
+              620
+            ],
+            "Asmodeum": [
+              210,
+              680
+            ],
+            "Mythril Ingot": [
+              210,
+              740
+            ],
+            "Prismatic Ingot": [
+              210,
+              800
+            ]
+          }
+        },
+          "Precious Ingot": {
+            "cords": [
+              210,
+              680
+            ],
+            "categories": {
+              "Silver Ingot": [
+                210,
+                440
+              ],
+              "Gold Ingot": [
+                210,
+                500
+              ],
+              "Platinum Ingot": [
+                210,
+                555
+              ]
+            }
+          },
+          "Leather": {
+          "cords": [
+            210,
+            800
+          ],
+          "categories": {
+            "Coarse Leather": [
+              210,
+              440
+            ],
+            "Rugged Leather": [
+              210,
+              500
+            ],
+            "Layered Leather": [
+              210,
+              555
+            ],
+            "Infused Leather": [
+              210,
+              620
+            ],
+            "Runic Leather": [
+              210,
+              680
+            ],
+            "Chitin Plate": [
+              210,
+              740
+            ],
+            "Dark Leather": [
+              210,
+              800
+            ],
+            "Prismatic Leather": [
+              210,
+              860
+            ]
+          }
+        }
 }

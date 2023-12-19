@@ -36,6 +36,12 @@ class Mouse:
         amount *= 100
         pyautogui.scroll(-amount)
 
+    def scroll_down_cords(self, count):
+        """Функция для того чтобы крутить колесо мышки\n
+        вниз по определенному количеству координат
+        """
+        pyautogui.scroll(-count)
+
     def scroll_up(self, amount):
         """Функция для того что прокрутить колесико мышки вверх
         amount - колличество прокруток

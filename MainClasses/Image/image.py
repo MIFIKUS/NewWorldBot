@@ -56,7 +56,7 @@ class Image:
         is_digits - True если с картинки нужно получить только числа, False если нужно получить еще и текст
         """
         if is_digits is True:
-            text = pytesseract.image_to_string(image_name, config='--psm 11 -c tessedit_char_whitelist=0123456789/,.')
+            text = pytesseract.image_to_string(image_name, config='--oem 1 --psm 11 -c tessedit_char_whitelist=0123456789/,.')
             return text
         text = pytesseract.image_to_string(image_name, lang='eng', config='--psm 3')
         return text
@@ -66,12 +66,22 @@ class Image:
         text = pytesseract.image_to_string(image_name, config=config)
         return text
 
+    def upscale_image(self, file: str, upscale_multiplier):
+        src = cv2.imread(file, cv2.IMREAD_UNCHANGED)
+        upscale_multiplier *= 100
+        width = int(src.shape[1] * upscale_multiplier / 100)
+        height = int(src.shape[0] * upscale_multiplier / 100)
+        dsize = (width, height)
+        output = cv2.resize(src, dsize)
+
+        cv2.imwrite(file, output)
+
     def get_main_color(self, file):
         """Функция для получения цвета который чаще всего представлен на картинке\n
         file - название изображения на котором нужно найти цвет
         """
         img = pil.open(file)
-        colors = img.getcolors(256)  # put a higher value if there are many colors in your image
+        colors = img.getcolors(512)  # put a higher value if there are many colors in your image
         max_occurence, most_present = 0, 0
         try:
             for c in colors:
@@ -94,4 +104,4 @@ class Image:
         inverse_cachement_mask = cv2.bitwise_not(mask)
         im[inverse_cachement_mask>0] = [0, 0, 0]
 
-        cv2.imwrite(file, im)
+        cv2.imwrite(file, mask)
