@@ -6,31 +6,31 @@
     ],
     "categories": {
       "Timber": [
-        210,
+        220,
         440
       ],
       "Lumber": [
-        210,
+        220,
         500
       ],
       "Wurdwood Planks": [
-        210,
+        220,
         555
       ],
       "Ironwood Planks": [
-        210,
+        220,
         620
       ],
       "Glittering Ebony": [
-        210,
+        220,
         680
       ],
       "Runewood Planks": [
-        210,
+        220,
         740
       ],
       "Prismatic Planks": [
-        210,
+        220,
         800
       ]
     }
@@ -38,168 +38,168 @@
 
     "Cloth": {
       "cords": [
-        210,
+        220,
         500
       ],
       "categories": {
         "Linen": [
-          210,
+          220,
           440
         ],
         "Sateen": [
-          210,
+          220,
           500
         ],
         "Silk": [
-          210,
+          220,
           555
         ],
         "Infused Silk": [
-          210,
+          220,
           620
         ],
         "Phoenixweave": [
-          210,
+          220,
           680
         ],
         "Spinweave Cloth": [
-          210,
+          220,
           740
         ],
         "Prismatic Cloth": [
-          210,
+          220,
           800
         ]
       }
     },
       "Refined Stone": {
         "cords": [
-          210,
+          220,
           560
         ],
         "categories": {
           "Stone Block": [
-            210,
+            220,
             440
           ],
           "Stone Brick": [
-            210,
+            220,
             500
           ],
           "Lodestone Brick": [
-            210,
+            220,
             555
           ],
           "Obsidian Voidstone": [
-            210,
+            220,
             620
           ],
           "Runestone": [
-            210,
+            220,
             680
           ],
           "Runic Voidstone": [
-            210,
+            220,
             740
           ],
           "Prismatic Block": [
-            210,
+            220,
             800
           ]
         }
       },
         "Ingot": {
           "cords": [
-            210,
+            220,
             620
           ],
           "categories": {
             "Iron Ingot": [
-              210,
+              220,
               440
             ],
             "Steel Ingot": [
-              210,
+              220,
               500
             ],
             "Starmetal Ingot": [
-              210,
+              220,
               555
             ],
             "Orichalcum Ingot": [
-              210,
+              220,
               620
             ],
             "Asmodeum": [
-              210,
+              220,
               680
             ],
             "Mythril Ingot": [
-              210,
+              220,
               740
             ],
             "Prismatic Ingot": [
-              210,
+              220,
               800
             ]
           }
         },
           "Precious Ingot": {
             "cords": [
-              210,
+              220,
               680
             ],
             "categories": {
               "Silver Ingot": [
-                210,
+                220,
                 440
               ],
               "Gold Ingot": [
-                210,
+                220,
                 500
               ],
               "Platinum Ingot": [
-                210,
+                220,
                 555
               ]
             }
           },
           "Leather": {
           "cords": [
-            210,
+            220,
             800
           ],
           "categories": {
             "Coarse Leather": [
-              210,
+              220,
               440
             ],
             "Rugged Leather": [
-              210,
+              220,
               500
             ],
             "Layered Leather": [
-              210,
+              220,
               555
             ],
             "Infused Leather": [
-              210,
+              220,
               620
             ],
             "Runic Leather": [
-              210,
+              220,
               680
             ],
             "Chitin Plate": [
-              210,
+              220,
               740
             ],
             "Dark Leather": [
-              210,
+              220,
               800
             ],
             "Prismatic Leather": [
-              210,
+              220,
               860
             ]
           }

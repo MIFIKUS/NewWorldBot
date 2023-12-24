@@ -29,11 +29,11 @@ class Mouse:
         self.move(x, y)
         pyautogui.mouseUp(button='left')
 
-    def scroll_down(self, amount):
+    def scroll_down(self, amount, multiply=100):
         """Функция для того прокрутить колесико мышки вниз\n
         amount - колличество прокруток
         """
-        amount *= 100
+        amount *= multiply
         pyautogui.scroll(-amount)
 
     def scroll_down_cords(self, count):
