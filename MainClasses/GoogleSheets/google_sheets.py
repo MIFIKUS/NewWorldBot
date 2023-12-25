@@ -20,7 +20,8 @@ class GoogleSheets:
             self.worksheet.update(key, value)
 
     def get_value_from_cell(self, cell):
-        """Функция чтобы получить значение из определенной клетки(или дипазона клеток)"""
+        """Функция чтобы получить значение из определенной клетки(или дипазона клеток)
+        get_value_from_cell()"""
         value = self.worksheet.get(cell)
         return value
 
