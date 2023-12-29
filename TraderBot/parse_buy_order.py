@@ -12,7 +12,7 @@ mouse = Mouse()
 image = Image()
 
 
-with open("E:\\projects\\NewWorldBot\\TraderBot\\Jsons\\catigories_cords.json", 'r', encoding='utf-8') as data:
+with open("E:\\projects\\NewWorldBot\\TraderBot\\Jsons\\categories_cords.json", 'r', encoding='utf-8') as data:
     categories = json.load(data)
 
 

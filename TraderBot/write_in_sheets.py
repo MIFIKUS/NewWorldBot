@@ -135,26 +135,29 @@ class WriteInSheets:
     def calculating_the_best_price():
         counter = 0
         count_of_goods = 0
+
         list_of_names = get_info.get_value_list(2)[1:]
         list_of_price = get_info.get_value_list(3)[1:]
         list_of_count = get_info.get_value_list(4)[1:]
 
         for elements_of_column in list_of_names:
-            if counter > 1 and list_of_names[counter - 1] != list_of_names[counter]:
+            if counter > 2 and list_of_names[counter - 1] != list_of_names[counter]:
                 for elements_of_category in range(counter):
-                    if (float(list_of_price[count_of_goods]) *
-                            float(list_of_count[count_of_goods]) >= 2000):
 
-                        print(list_of_names[count_of_goods],
-                              list_of_price[count_of_goods],
-                              list_of_count[count_of_goods])
-                        count_of_goods += counter
-                        break
+                    if (count_of_goods < len(list_of_price) and
+                            float(list_of_price[count_of_goods].replace(',', '.')) *
+                            float(list_of_count[count_of_goods].replace(',', '.')) >= 2000):
+
+                        return [list_of_names[count_of_goods],
+                                list_of_price[count_of_goods],
+                                list_of_count[count_of_goods]]
+                    count_of_goods = counter
+
                     count_of_goods += 1
             counter += 1
 
 
-#write_in_sheets = WriteInSheets(1, 1, 1, 1)
-#write_in_sheets.calculating_the_best_price()
+#write_in_sheets = WriteInSheets()
+calculating = WriteInSheets.calculating_the_best_price()
 
-WriteInSheets.calculating_the_best_price()
+print(calculating)
