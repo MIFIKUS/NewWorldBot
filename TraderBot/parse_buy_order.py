@@ -190,7 +190,7 @@ class ParseBuyOrder:
 
 
 parse_buy_order = ParseBuyOrder()
-parse_buy_order.start()
+
 
 
 

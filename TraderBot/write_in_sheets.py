@@ -1,6 +1,6 @@
 from MainClasses.GoogleSheets.google_sheets import GoogleSheets
 from MainClasses.Image.image import Image
-from GoogleInfo.google_tables import get_info
+from GoogleInfo.google_tables import GetInfo
 image = Image()
 
 cell_num = 2
@@ -131,33 +131,6 @@ class WriteInSheets:
         self.google_sheets.write_google({f"D{cell_num}:D{end_sell + 1}": avail_list})
         cell_num = end_sell + 1
 
-    @staticmethod
-    def calculating_the_best_price():
-        counter = 0
-        count_of_goods = 0
-
-        list_of_names = get_info.get_value_list(2)[1:]
-        list_of_price = get_info.get_value_list(3)[1:]
-        list_of_count = get_info.get_value_list(4)[1:]
-
-        for elements_of_column in list_of_names:
-            if counter > 2 and list_of_names[counter - 1] != list_of_names[counter]:
-                for elements_of_category in range(counter):
-
-                    if (count_of_goods < len(list_of_price) and
-                            float(list_of_price[count_of_goods].replace(',', '.')) *
-                            float(list_of_count[count_of_goods].replace(',', '.')) >= 2000):
-
-                        return [list_of_names[count_of_goods],
-                                list_of_price[count_of_goods],
-                                list_of_count[count_of_goods]]
-                    count_of_goods = counter
-
-                    count_of_goods += 1
-            counter += 1
 
 
-#write_in_sheets = WriteInSheets()
-calculating = WriteInSheets.calculating_the_best_price()
 
-print(calculating)

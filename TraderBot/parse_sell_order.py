@@ -67,4 +67,4 @@ class ParseSellOrder:
 
 
 parse_sell_order = ParseSellOrder()
-parse_sell_order.start()
+
