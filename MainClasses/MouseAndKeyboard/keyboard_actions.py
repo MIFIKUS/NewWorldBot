@@ -19,4 +19,4 @@ class Keyboard:
 
     def type(self, text):
         """Функция для того чтобы напечатать текст"""
-        pyautogui.write(text, self.TYPE_INTERVAL)
+        pyautogui.write(text)

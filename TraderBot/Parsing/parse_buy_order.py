@@ -1,18 +1,20 @@
 from MainClasses.MouseAndKeyboard.mouse_actions import Mouse
 from MainClasses.Windows.windows import Windows
 from MainClasses.Image.image import Image
+from TraderBot.GoogleInfo.google_tables import WriteInfo
+from TraderBot.PhotoPreparation.photo_preparation import PhotoPreparation
+from TraderBot.PhotoPreparation.photo_preparation import list_of_values, list_of_uniq_values
 
 import time
 import json
 
-from TraderBot.write_in_sheets import WriteInSheets
 
 windows = Windows()
 mouse = Mouse()
 image = Image()
 
 
-with open("E:\\projects\\NewWorldBot\\TraderBot\\Jsons\\categories_cords.json", 'r', encoding='utf-8') as data:
+with open("/TraderBot/Jsons/categories_cords.json", 'r', encoding='utf-8') as data:
     categories = json.load(data)
 
 
@@ -24,11 +26,9 @@ class ParseBuyOrder:
         windows.switch_windows(self.get_categories)
 
     def get_categories(self, hwnd):
-        time.sleep(2)
+        time.sleep(1)
         mouse.move_and_click(220, 150)
-        time.sleep(1)
         mouse.move_and_click(125, 600)
-        time.sleep(1)
         mouse.move_and_click(300, 640)
 
         for i in self.main_categories:
@@ -39,11 +39,15 @@ class ParseBuyOrder:
 
             sub_categories = category_dict.get("categories")
             for sub_category_name, sub_category_cords in sub_categories.items():
-                time.sleep(1)
                 mouse.move_and_click(sub_category_cords[0], sub_category_cords[1])
                 self.check_count_of_goods(i, sub_category_name)
 
             mouse.move_and_click(260, 310)
+
+        write_info = WriteInfo(num_of_sheet=4)
+
+        write_info.write_list_of_values('Лист1!A2', list_of_values)
+        write_info.write_list_of_values('Стаки!A2', list_of_uniq_values)
 
     def check_count_of_goods(self, main_name, name):
         mouse.move(1800, 288)
@@ -107,7 +111,7 @@ class ParseBuyOrder:
                                       (1695, 345 + 77 * product, 1775, 375 + 77 * product))
                 if product == count_of_goods - 1:
                     mouse.move_and_click(260, 310)
-                    write_in_sheets = WriteInSheets(main_name, name, product, 0, True)
+                    write_in_sheets = PhotoPreparation(main_name, name, product, True)
                     write_in_sheets.image_preparation()
                     break
 
@@ -139,7 +143,7 @@ class ParseBuyOrder:
 
                 if products_after_scrolling == 8:
                     mouse.move_and_click(260, 310)
-                    write_in_sheets = WriteInSheets(main_name, name, scroll, 0, True)
+                    write_in_sheets = PhotoPreparation(main_name, name, scroll, True)
                     write_in_sheets.image_preparation()
                     break
 
@@ -151,7 +155,6 @@ class ParseBuyOrder:
         num = 0
 
         for a in range(3):
-            time.sleep(3)
             if a < 2:
                 for i in range(9):
                     num += 1
@@ -160,13 +163,13 @@ class ParseBuyOrder:
                     image.take_screenshot(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\avail{num}.png",
                                           (1695, 345 + 77 * i, 1775, 380 + 77 * i))
 
-                    if cycle == 1 and i == 8 and a < 1:
+                    if i == 8 and cycle == 0:
+                        mouse.scroll_down(13)
+                        time.sleep(1)
+                    elif cycle == 1 and i == 8 and a < 1:
                         mouse.move(1849, 318)
                         mouse.drag(1849, 700)
                         mouse.move(1802, 298)
-                        time.sleep(1)
-                    elif cycle == 0 and i == 8:
-                        mouse.scroll_down(13)
                         time.sleep(1)
                     else:
                         continue
@@ -185,14 +188,21 @@ class ParseBuyOrder:
                             (1685, 920 + 77 * b, 1785, 945 + 77 * b))
 
         mouse.move_and_click(260, 310)
-        write_in_sheets = WriteInSheets(main_name, name, number_of_entries, 0,  True)
+
+        write_in_sheets = PhotoPreparation(main_name, name, number_of_entries, True)
         write_in_sheets.image_preparation()
 
 
 parse_buy_order = ParseBuyOrder()
 
 
+def start():
+    windows.switch_windows(a)
 
 
+def a(hwnd):
+    mouse.move_and_click(677, 362)
+    mouse.drag(677, 412)
 
 
+start()

@@ -1,9 +1,10 @@
-from parse_buy_order import windows, image, mouse
-from write_in_sheets import WriteInSheets
+from TraderBot.Parsing.parse_buy_order import windows, image, mouse
+from photo_preparation import PhotoPreparation, list_of_values
+from TraderBot.GoogleInfo.google_tables import WriteInfo
 import json
 import time
 
-with open("E:\\projects\\NewWorldBot\\TraderBot\\Jsons\\categories_cords.json", 'r', encoding='utf-8') as data:
+with open("/TraderBot/Jsons/categories_cords.json", 'r', encoding='utf-8') as data:
     categories = json.load(data)
 
 
@@ -38,6 +39,9 @@ class ParseSellOrder:
 
             mouse.move_and_click(260, 390)
 
+        write_info = WriteInfo(num_of_sheet=4)
+        write_info.write_list_of_values('Бай ордера!A2', list_of_values)
+
     def parse_products(self, main_name, name):
         count_of_goods = 0
         time.sleep(2.5)
@@ -60,7 +64,7 @@ class ParseSellOrder:
                                   (1680, 385 + 77 * product, 1750, 435 + 77 * product))
 
             if product == count_of_goods - 1:
-                write_in_sheets = WriteInSheets(main_name, name, product + 1, 3)
+                write_in_sheets = PhotoPreparation(main_name, name, product + 1)
                 write_in_sheets.image_preparation()
                 break
         mouse.move_and_click(260, 390)

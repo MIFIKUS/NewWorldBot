@@ -3,6 +3,7 @@ import PIL.ImageGrab
 import numpy as np
 import cv2
 import pytesseract
+
 pytesseract.pytesseract.tesseract_cmd = r"E:\programs\teseract\tesseract.exe"
 
 
@@ -18,6 +19,7 @@ class Image:
         func - нужно ли возвращать координаты\n
         area_of_screenshot - область в которой нужно сделать скриншот. (указывать как тапл). Если оставить None, то будет сделан скриншот всего экрана
         """
+
         if need_for_taking_screenshot:
             if area_of_screenshot:
                 PIL.ImageGrab.grab(bbox=area_of_screenshot).save(main_image_name)
@@ -91,17 +93,42 @@ class Image:
         except TypeError:
             raise Exception("Too many colors in the image")
 
-    def delete_all_colors_except_one(self, file: str, colorMin_list: list, colorMax_list: list):
+    @staticmethod
+    def delete_all_colors_except_one(file: str, colorMin_list: list, colorMax_list: list):
         """Функция для удаления всех цветов с картинки кроме одного"""
         im = cv2.imread(file)
 
         colorMin = np.array(colorMin_list, np.uint8)
         colorMax = np.array(colorMax_list, np.uint8)
 
-        RGB  = cv2.cvtColor(im,cv2.COLOR_BGR2RGB)
+        RGB  = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
         mask = cv2.inRange(RGB, colorMin, colorMax)
 
         inverse_cachement_mask = cv2.bitwise_not(mask)
-        im[inverse_cachement_mask>0] = [0, 0, 0]
+        im[inverse_cachement_mask > 0] = [0, 0, 0]
 
         cv2.imwrite(file, mask)
+
+    @staticmethod
+    def get_slider_size(filename):
+
+        pic = cv2.imread(filename)
+
+        gray_image = cv2.cvtColor(pic, cv2.COLOR_BGR2GRAY)
+
+        _, binary_image = cv2.threshold(gray_image, 240, 255, cv2.THRESH_BINARY)
+
+        contours, _ = cv2.findContours(binary_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+        slider_contour = max(contours, key=cv2.contourArea)
+
+        x, y, w, h = cv2.boundingRect(slider_contour)
+
+        return h
+
+
+image = Image()
+
+#image.delete_all_colors_except_one('E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\scrola1.png', [65, 65, 65], [120, 120, 120])
+#'E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\scrola1.png'
+

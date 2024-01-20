@@ -7,6 +7,9 @@ with open(r"E:\\projects\\NewWorldBot\\TraderBot\\Jsons\\categories_cords.json",
 
 
 class PriceCalculation:
+    def __init__(self, max_price):
+        self.max_price = max_price
+
     @staticmethod
     def search_for_optimal_price(num_of_list):
 
@@ -26,14 +29,13 @@ class PriceCalculation:
             if counter > 2 and list_of_names[counter - 1] != list_of_names[counter]:
 
                 for elements_of_category in range(counter):
-                    price = float(
-                        '.'.join(list_of_price[count_of_goods].replace(',', '.').replace(' ', '').split('.')[:2]))
+                    price = float('.'.join(list_of_price[count_of_goods].replace(',', '.').replace(' ', '').split('.')[:2]))
                     amount = float(
                         '.'.join(list_of_count[count_of_goods].replace(',', '.').replace(' ', '').split('.')[:2]))
                     product = price * amount
                     total_sum += product
 
-                    if total_sum > 2000:
+                    if total_sum > 1000:
                         list_of_values.update({list_of_names[count_of_goods]: price})
                         count_of_goods = counter
                         break
@@ -71,9 +73,7 @@ class PriceCalculation:
 
     def record_price_difference_in_table(self):
         write_info = WriteInfo(num_of_sheet=4)
-        write_info.write_list_of_values(self.calculating_price_difference())
+        write_info.write_list_of_values('Покупка/Продажа!A2', self.calculating_price_difference())
 
 
-price_calculation = PriceCalculation()
 
-price_calculation.record_price_difference_in_table()

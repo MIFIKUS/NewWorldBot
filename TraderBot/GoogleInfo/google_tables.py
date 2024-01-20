@@ -34,8 +34,8 @@ class WriteInfo(GoogleSheets):
                  num_of_sheet=0):
         super().__init__(SPREADSHEET_URL, credentials, num_of_sheet)
 
-    def write_list_of_values(self, dict_of_values):
-        self.sh.values_update('Покупка/Продажа!A2',
+    def write_list_of_values(self, name_of_sheet, dict_of_values):
+        self.sh.values_update(f'{name_of_sheet}',
                               params={
                                   'valueInputOption': 'USER_ENTERED'
                               },
