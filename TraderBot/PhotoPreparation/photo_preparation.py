@@ -1,10 +1,9 @@
 from MainClasses.GoogleSheets.google_sheets import GoogleSheets
 from MainClasses.Image.image import Image
-#image = Image()
 
 
 list_of_values = []
-list_of_uniq_values = []
+#list_of_uniq_values = []
 
 
 class PhotoPreparation(Image):
@@ -61,19 +60,19 @@ class PhotoPreparation(Image):
 
             list_of_values.append([self.main_name, self.name, price, avail])
 
-        if self.need_for_uniqueness is True:
+        #if self.need_for_uniqueness is True:
 
-            for sublist in list_of_values:
-                key = (sublist[0], sublist[1], sublist[2])
-                sublist[3] = sublist[3].replace('.', '').replace(' ', '')
-                value = int(sublist[3])
-
-                if key in info_diction:
-                    info_diction[key] += value
-                else:
-                    info_diction[key] = value
-
-            list_of_uniq_values = [[*key, value] for key, value in info_diction.items()]
+            #for sublist in list_of_values:
+            #    key = (sublist[0], sublist[1], sublist[2])
+            #    sublist[3] = sublist[3].replace('.', '').replace(' ', '')
+            #    value = int(sublist[3])
+#
+            #    if key in info_diction:
+            #        info_diction[key] += value
+            #    else:
+            #        info_diction[key] = value
+#
+            #list_of_uniq_values = [[*key, value] for key, value in info_diction.items()]
 
     def get_scrollbar_size(self, filename, area_of_screenshot):
         self.take_screenshot(filename, area_of_screenshot)

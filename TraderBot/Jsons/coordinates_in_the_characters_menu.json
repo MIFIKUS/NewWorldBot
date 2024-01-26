@@ -1,0 +1,7 @@
+{
+   "AP Southeast": {"cords": [200, 380], "characters": [[200, 540]]},
+  "SA East": {"cords": [200, 440], "characters": [[200, 440]]},
+  "US West": {"cords": [200, 580], "characters": [[200, 440]]},
+  "US East": {"cords": [200, 540], "characters": [[200, 640], [200, 540], [200, 440]]},
+  "UE Central": {"cords": [200, 580], "characters": [[200, 440]]}
+}

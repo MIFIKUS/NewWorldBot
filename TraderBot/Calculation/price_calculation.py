@@ -1,18 +1,13 @@
 from TraderBot.GoogleInfo.google_tables import GetInfo, WriteInfo
 
-import json
-
-with open(r"E:\\projects\\NewWorldBot\\TraderBot\\Jsons\\categories_cords.json", 'r', encoding='utf-8') as data:
-    categories = json.load(data)
-
 
 class PriceCalculation:
-    def __init__(self, max_price):
+    def __init__(self, max_price, percent):
         self.max_price = max_price
+        self.percent = percent
 
     @staticmethod
     def search_for_optimal_price(num_of_list):
-
         counter = 0
         count_of_goods = 0
 
@@ -42,7 +37,36 @@ class PriceCalculation:
 
                     count_of_goods += 1
             counter += 1
+
         return list_of_values
+
+    @staticmethod
+    def calculations_for_one_product(price, count):
+        total_sum = 0
+        list_of_values = []
+        for elements_of_category in range(len(price)):
+
+            if '.' in price[elements_of_category]:
+                prices = float('.'.join(price[elements_of_category].replace(',', '.').replace(' ', '').split('.')[:2]))
+            else:
+                prices = int(price[elements_of_category])
+
+            if '.' in count[elements_of_category]:
+                amount = float('.'.join(count[elements_of_category].replace(',', '.').replace(' ', '').split('.')[:2]))
+            else:
+                amount = float(count[elements_of_category])
+
+            product = prices * amount
+            total_sum += product
+
+            if total_sum > 1000:
+                return prices - 0.01
+
+    def counting_quantity(self, cost_of_good):
+        number_of_multiplications = self.max_price / cost_of_good
+        quantity = number_of_multiplications - (number_of_multiplications / 100) * 2.5 - 1
+
+        return quantity
 
     def calculating_price_difference(self):
         buy_order = self.search_for_optimal_price(3)
@@ -62,8 +86,13 @@ class PriceCalculation:
         for key in buy_order:
             characters[key] = [buy_order[key], sell_order[key]]
 
-        for key in characters.keys():
+        for key in list(characters.keys()):
             diff = int((characters[key][1] - characters[key][0]) / buy_order[key] * 100)
+            if diff < self.percent:
+                del characters[key]
+                continue
+
+            characters[key].append(self.counting_quantity(characters[key][0]))
             characters[key].append(diff)
 
         dictionary = [[key, *value] for key, value in characters.items()]

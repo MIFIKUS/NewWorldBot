@@ -3,7 +3,7 @@ from MainClasses.Windows.windows import Windows
 from MainClasses.Image.image import Image
 from TraderBot.GoogleInfo.google_tables import WriteInfo
 from TraderBot.PhotoPreparation.photo_preparation import PhotoPreparation
-from TraderBot.PhotoPreparation.photo_preparation import list_of_values, list_of_uniq_values
+from TraderBot.PhotoPreparation.photo_preparation import list_of_values#, list_of_uniq_values
 
 import time
 import json
@@ -14,12 +14,15 @@ mouse = Mouse()
 image = Image()
 
 
-with open("/TraderBot/Jsons/categories_cords.json", 'r', encoding='utf-8') as data:
+with open("E:\\projects\\NewWorldBot\\TraderBot\\Jsons\\categories_cords.json", 'r', encoding='utf-8') as data:
     categories = json.load(data)
 
 
 class ParseBuyOrder:
-    def __init__(self):
+    def __init__(self, need_for_parsing_one_product=False):
+        self.need_for_parsing_one_product = need_for_parsing_one_product
+        self.name_of_category = None
+        self.name_of_goods = None
         self.main_categories = categories.keys()
 
     def start(self):
@@ -40,16 +43,20 @@ class ParseBuyOrder:
             sub_categories = category_dict.get("categories")
             for sub_category_name, sub_category_cords in sub_categories.items():
                 mouse.move_and_click(sub_category_cords[0], sub_category_cords[1])
-                self.check_count_of_goods(i, sub_category_name)
+
+                self.name_of_category = i
+                self.name_of_goods = sub_category_name
+
+                self.check_count_of_goods()
 
             mouse.move_and_click(260, 310)
 
         write_info = WriteInfo(num_of_sheet=4)
 
         write_info.write_list_of_values('Лист1!A2', list_of_values)
-        write_info.write_list_of_values('Стаки!A2', list_of_uniq_values)
+        #write_info.write_list_of_values('Стаки!A2', list_of_uniq_values)
 
-    def check_count_of_goods(self, main_name, name):
+    def check_count_of_goods(self):
         mouse.move(1800, 288)
         time.sleep(2.2)
         image.take_screenshot("E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\arrow.png",
@@ -57,11 +64,14 @@ class ParseBuyOrder:
         color = image.get_main_color("E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\arrow.png")
 
         if color == (145, 127, 97):
-            self.parse_if_20(main_name, name)
+            self.parse_if_20()
         elif 50 <= color[0] <= 90 and 40 <= color[1] <= 80 and 30 <= color[2] <= 65:
-            self.parse_if_not_20(main_name, name)
+            self.parse_if_not_20()
 
-    def parse_if_not_20(self, main_name, name):
+        if self.need_for_parsing_one_product is True:
+            return list_of_values
+
+    def parse_if_not_20(self):
         def check_scrollbar():
             mouse.move(1800, 288)
             image.take_screenshot("E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\is_there_a_scroll.png",
@@ -111,7 +121,7 @@ class ParseBuyOrder:
                                       (1695, 345 + 77 * product, 1775, 375 + 77 * product))
                 if product == count_of_goods - 1:
                     mouse.move_and_click(260, 310)
-                    write_in_sheets = PhotoPreparation(main_name, name, product, True)
+                    write_in_sheets = PhotoPreparation(self.name_of_category, self.name_of_goods, product, True)
                     write_in_sheets.image_preparation()
                     break
 
@@ -143,14 +153,14 @@ class ParseBuyOrder:
 
                 if products_after_scrolling == 8:
                     mouse.move_and_click(260, 310)
-                    write_in_sheets = PhotoPreparation(main_name, name, scroll, True)
+                    write_in_sheets = PhotoPreparation(self.name_of_category, self.name_of_goods, scroll, True)
                     write_in_sheets.image_preparation()
                     break
 
         elif scroll > 18:
-            self.parse_if_20(main_name, name, cycle=20 - scroll, number_of_entries=scroll)
+            self.parse_if_20(cycle=20 - scroll, number_of_entries=scroll)
 
-    def parse_if_20(self, main_name, name, cycle=0, number_of_entries=19):
+    def parse_if_20(self, cycle=0, number_of_entries=19):
         mouse.move(1802, 298)
         num = 0
 
@@ -189,20 +199,10 @@ class ParseBuyOrder:
 
         mouse.move_and_click(260, 310)
 
-        write_in_sheets = PhotoPreparation(main_name, name, number_of_entries, True)
+        write_in_sheets = PhotoPreparation(self.name_of_category, self.name_of_goods, number_of_entries)
         write_in_sheets.image_preparation()
 
 
 parse_buy_order = ParseBuyOrder()
 
 
-def start():
-    windows.switch_windows(a)
-
-
-def a(hwnd):
-    mouse.move_and_click(677, 362)
-    mouse.drag(677, 412)
-
-
-start()

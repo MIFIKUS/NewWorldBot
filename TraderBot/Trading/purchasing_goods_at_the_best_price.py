@@ -1,7 +1,6 @@
-import time
-
-from NavigationInTheGame.navigation_in_the_game import navigation_in_the_buy
+from TraderBot.NavigationInTheGame.navigation_in_the_buy_tab import navigation_in_the_buy
 from TraderBot.ActionsAndChecksInGame.check import check
+import time
 
 
 class PurchasingGoodsAtTheBestPrice:
@@ -17,25 +16,14 @@ class PurchasingGoodsAtTheBestPrice:
             navigation_in_the_buy.go_to_buy_refined_resources()
             navigation_in_the_buy.go_to_category(num_of_list[el][0])
             navigation_in_the_buy.click_to_place_buy_order()
-            if num_of_list[el][3] >= self.percent and float(check.check_balance()) >= self.max_price + 10:
-                self.buy(num_of_list[el][1])
+            if float(check.check_balance()) >= self.max_price + 10:
+                self.buy(num_of_list[el][1], num_of_list[el][3])
             navigation_in_the_buy.click_to_buy_resources()
 
-    def buy(self, cost_of_goods):
-
+    def buy(self, cost_of_goods, quantity):
         navigation_in_the_buy.move_to_buy_unit_price_and_set_price(cost_of_goods + 0.01)
-
-        number_of_multiplications = 1
-        a = 0
-
-        while a < self.max_price:
-            a = cost_of_goods * number_of_multiplications
-            number_of_multiplications += 1
-
-        quantity = number_of_multiplications - (number_of_multiplications / 100) * 2.5 - 1
-
         navigation_in_the_buy.move_to_buy_quantity_and_set_quantity(quantity)
-        print(cost_of_goods)
+
         navigation_in_the_buy.click_to_confirm_buy()
         time.sleep(1)
 
