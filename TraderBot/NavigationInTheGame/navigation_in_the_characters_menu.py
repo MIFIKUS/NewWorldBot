@@ -15,8 +15,9 @@ class NavigationInCharactersMenu(Mouse):
 
     def click_to_server_menu(self):
         self.move_and_click(200, 340)
-
-    def gj(self):
+    
+    @staticmethod
+    def character_buster():
         coordinates_of_servers = [i for i in characters.keys()]
         for i in coordinates_of_servers:
             print(characters[i]["cords"], characters[i]["characters"])

@@ -1,4 +1,3 @@
-
 from TraderBot.Parsing.parse_buy_order import parse_buy_order
 from TraderBot.Parsing.parse_sell_order import parse_sell_order
 from TraderBot.Calculation.price_calculation import PriceCalculation

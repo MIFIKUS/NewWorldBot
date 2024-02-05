@@ -19,7 +19,7 @@ class PriceCalculation:
 
         list_of_values = {}
 
-        for elements_of_column in list_of_names:
+        for _ in list_of_names:
             total_sum = 0
             if counter > 2 and list_of_names[counter - 1] != list_of_names[counter]:
 
