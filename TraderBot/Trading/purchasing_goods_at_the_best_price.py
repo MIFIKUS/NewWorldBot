@@ -1,5 +1,6 @@
 from TraderBot.NavigationInTheGame.navigation_in_the_buy_tab import navigation_in_the_buy
 from TraderBot.ActionsAndChecksInGame.check import check
+from TraderBot.Jsons.get_json_data import GetJsonData
 import time
 
 
@@ -8,16 +9,19 @@ class PurchasingGoodsAtTheBestPrice:
         self.max_price = max_price
         self.percent = percent
 
-    def search_for_buy_button(self, num_of_list):
+    def search_for_buy_button(self, list_of_prices_and_amounts):
 
         navigation_in_the_buy.go_to_buy_resources()
-        for el in range(len(num_of_list)):
+        for el in range(len(list_of_prices_and_amounts)):
 
-            navigation_in_the_buy.go_to_buy_refined_resources()
-            navigation_in_the_buy.go_to_category(num_of_list[el][0])
+            navigation_in_the_buy.go_to_buy_catalog_of_resources(list_of_prices_and_amounts[el][0])
+            navigation_in_the_buy.go_to_category(list_of_prices_and_amounts[el][0])
             navigation_in_the_buy.click_to_place_buy_order()
             if float(check.check_balance()) >= self.max_price + 10:
-                self.buy(num_of_list[el][1], num_of_list[el][3])
+                self.buy(list_of_prices_and_amounts[el][1], list_of_prices_and_amounts[el][3])
+            elif list_of_prices_and_amounts[el][1] <= float(check.check_balance()) <= self.max_price + 10:
+                self.buy(list_of_prices_and_amounts[el][1],
+                         list_of_prices_and_amounts[el][3] / GetJsonData.balance_of_beggar)
             navigation_in_the_buy.click_to_buy_resources()
 
     def buy(self, cost_of_goods, quantity):

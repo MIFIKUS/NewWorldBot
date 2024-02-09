@@ -1,4 +1,6 @@
-from TraderBot.GoogleInfo.google_tables import GetInfo, WriteInfo
+from TraderBot.DataBase.write_to_db import write_to_db
+from TraderBot.DataBase.read_db import read_db
+from TraderBot.NavigationInTheGame.navigation_in_the_characters_menu import NavigationInCharactersMenu
 
 
 class PriceCalculation:
@@ -7,16 +9,16 @@ class PriceCalculation:
         self.percent = percent
 
     @staticmethod
-    def search_for_optimal_price(num_of_list):
+    def search_for_optimal_price(name_of_list):
         counter = 0
         count_of_goods = 0
 
-        get_info = GetInfo(num_of_sheet=num_of_list)
-
-        list_of_names = get_info.get_value_list(2)[1:]
-        list_of_price = get_info.get_value_list(3)[1:]
-        list_of_count = get_info.get_value_list(4)[1:]
-
+        list_of_names = [x[1] for x in read_db.get_data_from_table_of_orders(NavigationInCharactersMenu().character_id,
+                                                                             name_of_list)]
+        list_of_price = [x[2] for x in read_db.get_data_from_table_of_orders(NavigationInCharactersMenu().character_id,
+                                                                             name_of_list)]
+        list_of_count = [x[3] for x in read_db.get_data_from_table_of_orders(NavigationInCharactersMenu().character_id,
+                                                                             name_of_list)]
         list_of_values = {}
 
         for _ in list_of_names:
@@ -24,9 +26,8 @@ class PriceCalculation:
             if counter > 2 and list_of_names[counter - 1] != list_of_names[counter]:
 
                 for elements_of_category in range(counter):
-                    price = float('.'.join(list_of_price[count_of_goods].replace(',', '.').replace(' ', '').split('.')[:2]))
-                    amount = float(
-                        '.'.join(list_of_count[count_of_goods].replace(',', '.').replace(' ', '').split('.')[:2]))
+                    price = list_of_price[count_of_goods]
+                    amount = list_of_count[count_of_goods]
                     product = price * amount
                     total_sum += product
 
@@ -43,24 +44,12 @@ class PriceCalculation:
     @staticmethod
     def calculations_for_one_product(price, count):
         total_sum = 0
-        list_of_values = []
         for elements_of_category in range(len(price)):
-
-            if '.' in price[elements_of_category]:
-                prices = float('.'.join(price[elements_of_category].replace(',', '.').replace(' ', '').split('.')[:2]))
-            else:
-                prices = int(price[elements_of_category])
-
-            if '.' in count[elements_of_category]:
-                amount = float('.'.join(count[elements_of_category].replace(',', '.').replace(' ', '').split('.')[:2]))
-            else:
-                amount = float(count[elements_of_category])
-
-            product = prices * amount
+            product = price[elements_of_category] * count[elements_of_category]
             total_sum += product
 
             if total_sum > 1000:
-                return prices - 0.01
+                return price[elements_of_category] - 0.01
 
     def counting_quantity(self, cost_of_good):
         number_of_multiplications = self.max_price / cost_of_good
@@ -69,8 +58,8 @@ class PriceCalculation:
         return quantity
 
     def calculating_price_difference(self):
-        buy_order = self.search_for_optimal_price(3)
-        sell_order = self.search_for_optimal_price(0)
+        buy_order = self.search_for_optimal_price('buy_orders')
+        sell_order = self.search_for_optimal_price('sell_orders')
 
         characters = {}
 
@@ -101,8 +90,8 @@ class PriceCalculation:
         return sorted_data
 
     def record_price_difference_in_table(self):
-        write_info = WriteInfo(num_of_sheet=4)
-        write_info.write_list_of_values('Покупка/Продажа!A2', self.calculating_price_difference())
+        write_to_db.record_purchase_and_sale_prices(NavigationInCharactersMenu().character_id,
+                                                    self.calculating_price_difference())
 
 
 

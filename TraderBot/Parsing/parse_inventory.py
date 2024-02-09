@@ -11,7 +11,6 @@ class ParseInventory(Image):
     @staticmethod
     def go_to_inventory():
         navigation_in_the_sell_my_items.go_to_my_items()
-        navigation_in_the_sell_my_items.move_and_click(123, 343) #нажать на owned
 
     def taking_screenshot(self):
         self.position = 1

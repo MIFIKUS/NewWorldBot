@@ -1,37 +1,42 @@
 {
-  "Refined woods": {
-    "cords": [
-      245,
-      430
-    ],
-    "categories": {
-      "Lumber": [
-        220,
-        500
+"Refined Resources": {
+  "main category cords": [
+    235,
+    635
+  ],
+  "category_of_goods": {
+    "Refined woods": {
+      "cords": [
+        245,
+        430
       ],
-      "Wurdwood Planks": [
-        220,
-        555
-      ],
-      "Ironwood Planks": [
-        220,
-        620
-      ],
-      "Glittering Ebony": [
-        220,
-        680
-      ],
-      "Runewood Planks": [
-        220,
-        740
-      ],
-      "Prismatic Planks": [
-        220,
-        800
-      ]
-    }
-  },
-
+      "categories": {
+        "Lumber": [
+          220,
+          500
+        ],
+        "Wurdwood Planks": [
+          220,
+          555
+        ],
+        "Ironwood Planks": [
+          220,
+          620
+        ],
+        "Glittering Ebony": [
+          220,
+          680
+        ],
+        "Runewood Planks": [
+          220,
+          740
+        ],
+        "Prismatic Planks": [
+          220,
+          800
+        ]
+      }
+    },
     "Cloth": {
       "cords": [
         220,
@@ -68,136 +73,138 @@
         ]
       }
     },
-      "Refined Stone": {
-        "cords": [
+    "Refined Stone": {
+      "cords": [
+        220,
+        560
+      ],
+      "categories": {
+        "Stone Block": [
           220,
-          560
+          440
         ],
-        "categories": {
-          "Stone Block": [
-            220,
-            440
-          ],
-          "Stone Brick": [
-            220,
-            500
-          ],
-          "Lodestone Brick": [
-            220,
-            555
-          ],
-          "Obsidian Voidstone": [
-            220,
-            620
-          ],
-          "Runestone": [
-            220,
-            680
-          ],
-          "Runic Voidstone": [
-            220,
-            740
-          ],
-          "Prismatic Block": [
-            220,
-            800
-          ]
-        }
-      },
-        "Ingot": {
-          "cords": [
-            220,
-            620
-          ],
-          "categories": {
-            "Iron Ingot": [
-              220,
-              440
-            ],
-            "Steel Ingot": [
-              220,
-              500
-            ],
-            "Starmetal Ingot": [
-              220,
-              555
-            ],
-            "Orichalcum Ingot": [
-              220,
-              620
-            ],
-            "Asmodeum": [
-              220,
-              680
-            ],
-            "Mythril Ingot": [
-              220,
-              740
-            ],
-            "Prismatic Ingot": [
-              220,
-              800
-            ]
-          }
-        },
-          "Precious Ingot": {
-            "cords": [
-              220,
-              680
-            ],
-            "categories": {
-              "Silver Ingot": [
-                220,
-                440
-              ],
-              "Gold Ingot": [
-                220,
-                500
-              ],
-              "Platinum Ingot": [
-                220,
-                555
-              ]
-            }
-          },
-          "Leather": {
-          "cords": [
-            220,
-            800
-          ],
-          "categories": {
-            "Coarse Leather": [
-              220,
-              440
-            ],
-            "Rugged Leather": [
-              220,
-              500
-            ],
-            "Layered Leather": [
-              220,
-              555
-            ],
-            "Infused Leather": [
-              220,
-              620
-            ],
-            "Runic Leather": [
-              220,
-              680
-            ],
-            "Chitin Plate": [
-              220,
-              740
-            ],
-            "Dark Leather": [
-              220,
-              800
-            ],
-            "Prismatic Leather": [
-              220,
-              860
-            ]
-          }
-        }
+        "Stone Brick": [
+          220,
+          500
+        ],
+        "Lodestone Brick": [
+          220,
+          555
+        ],
+        "Obsidian Voidstone": [
+          220,
+          620
+        ],
+        "Runestone": [
+          220,
+          680
+        ],
+        "Runic Voidstone": [
+          220,
+          740
+        ],
+        "Prismatic Block": [
+          220,
+          800
+        ]
+      }
+    },
+    "Ingot": {
+      "cords": [
+        220,
+        620
+      ],
+      "categories": {
+        "Iron Ingot": [
+          220,
+          440
+        ],
+        "Steel Ingot": [
+          220,
+          500
+        ],
+        "Starmetal Ingot": [
+          220,
+          555
+        ],
+        "Orichalcum Ingot": [
+          220,
+          620
+        ],
+        "Asmodeum": [
+          220,
+          680
+        ],
+        "Mythril Ingot": [
+          220,
+          740
+        ],
+        "Prismatic Ingot": [
+          220,
+          800
+        ]
+      }
+    },
+    "Precious Ingot": {
+      "cords": [
+        220,
+        680
+      ],
+      "categories": {
+        "Silver Ingot": [
+          220,
+          440
+        ],
+        "Gold Ingot": [
+          220,
+          500
+        ],
+        "Platinum Ingot": [
+          220,
+          555
+        ]
+      }
+    },
+    "Leather": {
+      "cords": [
+        220,
+        800
+      ],
+      "categories": {
+        "Coarse Leather": [
+          220,
+          440
+        ],
+        "Rugged Leather": [
+          220,
+          500
+        ],
+        "Layered Leather": [
+          220,
+          555
+        ],
+        "Infused Leather": [
+          220,
+          620
+        ],
+        "Runic Leather": [
+          220,
+          680
+        ],
+        "Chitin Plate": [
+          220,
+          740
+        ],
+        "Dark Leather": [
+          220,
+          800
+        ],
+        "Prismatic Leather": [
+          220,
+          860
+        ]
+      }
+    }
+  }
+}
 }

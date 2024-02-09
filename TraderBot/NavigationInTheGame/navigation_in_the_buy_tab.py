@@ -1,9 +1,8 @@
 from MainClasses.MouseAndKeyboard.mouse_actions import Mouse
 from MainClasses.MouseAndKeyboard.keyboard_actions import Keyboard
-import json
+from TraderBot.Jsons.get_json_data import GetJsonData
 
-with open("E:\\projects\\NewWorldBot\\TraderBot\\Jsons\\categories_cords.json", 'r', encoding='utf-8') as data:
-    categories = json.load(data)
+categories = GetJsonData.get_json()
 
 
 class NavigationInBuy(Mouse, Keyboard):
@@ -17,16 +16,21 @@ class NavigationInBuy(Mouse, Keyboard):
     def click_to_buy_resources(self):
         self.move_and_click(130, 600)
 
-    def go_to_buy_refined_resources(self):
-        self.move_and_click(235, 635)
+    def go_to_buy_catalog_of_resources(self, category):
+        for main in categories:
+            for cats in categories.get(main)['category_of_goods'].items():
+                if category == next(iter(cats[1]['categories'])):
+                    self.move_and_click(categories.get(main)['main category cords'][0],
+                                        categories.get(main)['main category cords'][1])
 
     def go_to_category(self, category):
-
-        main_keys = [categories[main_keys] for main_keys in categories if
-                     category in categories[main_keys]['categories']]
-        value = main_keys[0]['categories'][category], main_keys[0]['cords']
-        print(category)
-        self.move_and_click(value[1][0], value[1][1]), self.move_and_click(value[0][0], value[0][1])
+        for main in categories:
+            for cats in categories.get(main)['category_of_goods'].items():
+                if category == next(iter(cats[1]['categories'])):
+                    self.move_and_click(categories.get(main)['main category cords'][0],
+                                        categories.get(main)['main category cords'][1])
+                    self.move_and_click(cats[1]['cords'][0], cats[1]['cords'][1])
+                    self.move_and_click(cats[1]['categories'][category][0], cats[1]['categories'][category][1])
 
     def click_to_place_buy_order(self):
         self.move_and_click(380, 490)

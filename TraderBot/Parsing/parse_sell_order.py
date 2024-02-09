@@ -1,21 +1,17 @@
-from TraderBot.Parsing.parse_buy_order import windows, image, mouse
-from photo_preparation import PhotoPreparation, list_of_values
-from TraderBot.GoogleInfo.google_tables import WriteInfo
-import json
-import time
+from TraderBot.DataBase.write_to_db import write_to_db
+from TraderBot.Parsing.parse_buy_order import image, mouse
+from TraderBot.PhotoPreparation.photo_preparation import PhotoPreparation, list_of_values
+from TraderBot.Jsons.get_json_data import GetJsonData
+from TraderBot.NavigationInTheGame.navigation_in_the_characters_menu import NavigationInCharactersMenu
 
-with open("/TraderBot/Jsons/categories_cords.json", 'r', encoding='utf-8') as data:
-    categories = json.load(data)
+import time
 
 
 class ParseSellOrder:
     def __init__(self):
-        self.main_categories = categories.keys()
+        self.categories = GetJsonData.get_json()
 
-    def start(self):
-        windows.switch_windows(self.get_categories)
-
-    def get_categories(self, hwnd):
+    def get_categories(self):
         time.sleep(2)
         mouse.move_and_click(570, 150)
         time.sleep(1)
@@ -25,22 +21,21 @@ class ParseSellOrder:
         time.sleep(1)
         mouse.move_and_click(300, 720)
 
-        for i in self.main_categories:
-            category_dict = categories.get(i)
-            category_cords = category_dict.get("cords")
-
+        for i in self.categories.keys():
+            category_dict = self.categories.get(i)
+            category_cords = category_dict.get("main category cords")
             mouse.move_and_click(category_cords[0], category_cords[1] + 65)
-
-            sub_categories = category_dict.get("categories")
+            sub_categories = category_dict.get("category_of_goods")
             for sub_category_name, sub_category_cords in sub_categories.items():
-                time.sleep(1)
-                mouse.move_and_click(sub_category_cords[0], sub_category_cords[1] + 60)
-                self.parse_products(i, sub_category_name)
+                mouse.move_and_click(sub_category_cords.get('cords')[0], sub_category_cords.get('cords')[1] + 65)
+                for name_of_category, cords_of_category in sub_category_cords.get('categories').items():
+                    mouse.move_and_click(cords_of_category[0], cords_of_category[1] + 65)
 
-            mouse.move_and_click(260, 390)
+                    self.parse_products(sub_category_name, name_of_category)
 
-        write_info = WriteInfo(num_of_sheet=4)
-        write_info.write_list_of_values('Бай ордера!A2', list_of_values)
+                mouse.move_and_click(260, 390)
+
+        write_to_db.recording_orders(NavigationInCharactersMenu().character_id, 'buy_orders', list_of_values)
 
     def parse_products(self, main_name, name):
         count_of_goods = 0

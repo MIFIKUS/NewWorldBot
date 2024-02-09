@@ -1,0 +1,168 @@
+{
+"Raw Resources": {
+    "main category cords": [220,370],
+    "category_of_goods": {
+      "Woods": {
+        "cords": [
+          220,
+          440
+        ],
+        "categories": {
+          "Green Wood": [
+            220,
+            440
+          ]
+        }
+      },
+      "Fibers": {
+        "cords": [
+          220,
+          500
+        ],
+        "categories": {
+          "Fibers": [
+            220,
+            440
+          ]
+        }
+      },
+      "Stones": {
+        "cords": [
+          220,
+          620
+        ],
+        "categories": {
+          "Stone": [
+            220,
+            440
+          ]
+        }
+      },
+      "Ores": {
+        "cords": [
+          220,
+          680
+        ],
+        "categories": {
+          "Iron Ore": [
+            220,
+            440
+          ]
+        }
+      },
+      "Precious Ores": {
+        "cords": [
+          220,
+          740
+        ],
+        "categories": {
+          "Silver Ore": [
+            220,
+            440
+          ]
+        }
+      },
+      "Oil": {
+        "cords": [
+          220,
+          860
+        ],
+        "categories": {
+          "Oil": [
+            220,
+            440
+          ],
+      "Rawhides": {
+        "cords": [
+          220,
+          930
+        ],
+        "categories": {
+          "Rawhide": [
+            220,
+            440
+          ]
+        }
+      }
+        }
+      }
+    }
+  },
+  "Refined Resources": {
+    "main category cords": [235, 635],
+    "category_of_goods": {
+      "Refined wood": {
+        "cords": [
+          245,
+          430
+        ],
+        "categories": {
+          "Timber": [
+            220,
+            440
+          ]
+        }
+      },
+      "Cloth": {
+        "cords": [
+          220,
+          500
+        ],
+        "categories": {
+          "Linen": [
+            220,
+            440
+          ]
+        }
+      },
+      "Refined Stone": {
+        "cords": [
+          220,
+          560
+        ],
+        "categories": {
+          "Stone Block": [
+            220,
+            440
+          ]
+        }
+      },
+      "Ingot": {
+        "cords": [
+          220,
+          620
+        ],
+        "categories": {
+          "Iron Ingot": [
+            220,
+            440
+          ]
+        }
+      },
+      "Precious Ingot": {
+        "cords": [
+          220,
+          680
+        ],
+        "categories": {
+          "Silver Ingot": [
+            220,
+            440
+          ]
+        }
+      },
+      "Leather": {
+        "cords": [
+          220,
+          800
+        ],
+        "categories": {
+          "Coarse Leather": [
+            220,
+            440
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,9 +1,8 @@
 from MainClasses.MouseAndKeyboard.mouse_actions import Mouse
 from MainClasses.MouseAndKeyboard.keyboard_actions import Keyboard
-import json
+from TraderBot.Jsons.get_json_data import GetJsonData
 
-with open("E:\\projects\\NewWorldBot\\TraderBot\\Jsons\\categories_cords.json", 'r', encoding='utf-8') as data:
-    categories = json.load(data)
+categories = GetJsonData.get_json()
 
 
 class NavigationInSellAllItems(Mouse, Keyboard):

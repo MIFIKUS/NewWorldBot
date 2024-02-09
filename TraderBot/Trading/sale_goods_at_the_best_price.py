@@ -18,31 +18,32 @@ class SaleGoodsAtTheBestPrice:
         comparison = [x for x in inventory for y in list_of_purchase_orders if x[0] == y[0] and int(x[1]) >= int(y[1]) / 2]
         if len(comparison) > 0:
             self.items_for_sale = comparison
-            self.movement_of_goods()
+            self._movement_of_goods()
         else:
             pass
 
-    def movement_of_goods(self):
+    def _movement_of_goods(self):
+        navigation_in_the_buy.go_to_buy_resources()
         for i, count in range(len(self.items_for_sale)), self.items_for_sale:
-            navigation_in_the_buy.go_to_buy_refined_resources()
+            navigation_in_the_buy.go_to_buy_catalog_of_resources(self.items_for_sale[i][0])
             navigation_in_the_buy.go_to_category(self.items_for_sale[i][0])
             navigation_in_the_buy.click_to_place_sell_order()
-            self.buy_products(self.calculation_of_favorable_price(self.parsing_products()), int(count[1]) / 2)
+            self._buy_products(self._calculation_of_favorable_price(self._parsing_products()), int(count[1]) / 2)
 
     @staticmethod
-    def parsing_products(self):
+    def _parsing_products():
         parse_buy_order.need_for_parsing_one_product = True
         price = [sublist[2] for sublist in parse_buy_order.check_count_of_goods()]
         quantity = [sublist[3] for sublist in parse_buy_order.check_count_of_goods()]
         return price, quantity
 
     @staticmethod
-    def calculation_of_favorable_price(self, parsed_goods):
+    def _calculation_of_favorable_price(parsed_goods):
         current_price = PriceCalculation.calculations_for_one_product(parsed_goods[0], parsed_goods[1])
         return current_price
 
     @staticmethod
-    def buy_products(self, current_price, quantity):
+    def _buy_products(current_price, quantity):
         navigation_in_the_buy.click_to_place_sell_order()
         navigation_in_the_buy.move_to_sell_unit_price_and_set_price(current_price)
         navigation_in_the_buy.move_to_sell_quantity_and_set_quantity(quantity)

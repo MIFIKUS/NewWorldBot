@@ -1,21 +1,15 @@
 from MainClasses.MouseAndKeyboard.mouse_actions import Mouse
-from MainClasses.Windows.windows import Windows
 from MainClasses.Image.image import Image
-from TraderBot.GoogleInfo.google_tables import WriteInfo
 from TraderBot.PhotoPreparation.photo_preparation import PhotoPreparation
-from TraderBot.PhotoPreparation.photo_preparation import list_of_values#, list_of_uniq_values
+from TraderBot.PhotoPreparation.photo_preparation import list_of_values #, list_of_uniq_values
+from TraderBot.Jsons.get_json_data import GetJsonData
+from TraderBot.DataBase.write_to_db import write_to_db
+from TraderBot.NavigationInTheGame.navigation_in_the_characters_menu import NavigationInCharactersMenu
 
 import time
-import json
 
-
-windows = Windows()
 mouse = Mouse()
 image = Image()
-
-
-with open("E:\\projects\\NewWorldBot\\TraderBot\\Jsons\\categories_cords.json", 'r', encoding='utf-8') as data:
-    categories = json.load(data)
 
 
 class ParseBuyOrder:
@@ -23,38 +17,31 @@ class ParseBuyOrder:
         self.need_for_parsing_one_product = need_for_parsing_one_product
         self.name_of_category = None
         self.name_of_goods = None
-        self.main_categories = categories.keys()
+        self.categories = GetJsonData.get_json()
 
-    def start(self):
-        windows.switch_windows(self.get_categories)
-
-    def get_categories(self, hwnd):
+    def get_categories(self):
         time.sleep(1)
         mouse.move_and_click(220, 150)
         mouse.move_and_click(125, 600)
-        mouse.move_and_click(300, 640)
 
-        for i in self.main_categories:
-            category_dict = categories.get(i)
-            category_cords = category_dict.get("cords")
-
+        for i in self.categories.keys():
+            category_dict = self.categories.get(i)
+            category_cords = category_dict.get("main category cords")
             mouse.move_and_click(category_cords[0], category_cords[1])
+            sub_categories = category_dict.get("category_of_goods")
 
-            sub_categories = category_dict.get("categories")
             for sub_category_name, sub_category_cords in sub_categories.items():
-                mouse.move_and_click(sub_category_cords[0], sub_category_cords[1])
+                self.name_of_category = sub_category_name
+                mouse.move_and_click(sub_category_cords.get('cords')[0], sub_category_cords.get('cords')[1])
+                for name_of_category, cords_of_category in sub_category_cords.get('categories').items():
+                    mouse.move_and_click(cords_of_category[0], cords_of_category[1])
 
-                self.name_of_category = i
-                self.name_of_goods = sub_category_name
+                    self.name_of_category = name_of_category
+                    self.check_count_of_goods()
 
-                self.check_count_of_goods()
+                mouse.move_and_click(260, 310)
 
-            mouse.move_and_click(260, 310)
-
-        write_info = WriteInfo(num_of_sheet=4)
-
-        write_info.write_list_of_values('Лист1!A2', list_of_values)
-        #write_info.write_list_of_values('Стаки!A2', list_of_uniq_values)
+        write_to_db.recording_orders(NavigationInCharactersMenu().character_id, 'sell_orders', list_of_values)
 
     def check_count_of_goods(self):
         mouse.move(1800, 288)
