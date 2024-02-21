@@ -2,6 +2,7 @@ from MainClasses.MouseAndKeyboard.mouse_actions import Mouse
 from MainClasses.MouseAndKeyboard.keyboard_actions import Keyboard
 from TraderBot.ActionsAndChecksInGame.actions import actions
 from TraderBot.DataBase.read_db import read_db
+import TraderBot.shared_variables as shared_variables
 import time
 
 
@@ -33,22 +34,31 @@ class NavigationInCharactersMenu(Mouse, Keyboard):
     def character_buster(self, function):
         cords = read_db.switching_between_characters()
 
-        for i in cords:
+        for i in cords[5:]:
+
+            if i[0] == 5:
+                continue
+
             self._click_to_server_menu()
-            time.sleep(30)
+            time.sleep(15)
 
             self._remove_pop_up_window()
 
             self.character_id = i[0]
+            shared_variables.character_id = i[0]
 
             self.move_and_click(i[1], i[2])
             time.sleep(20)
+
+            self._remove_pop_up_window()
+
             self.move_and_click(i[3], i[4])
 
             self._click_to_play()
-            time.sleep(90)
+            time.sleep(100)
 
             actions.open_an_auction()
+
             function()
             self._go_back_to_menu()
 

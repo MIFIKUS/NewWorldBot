@@ -1,8 +1,5 @@
 from MainClasses.MouseAndKeyboard.mouse_actions import Mouse
 from MainClasses.MouseAndKeyboard.keyboard_actions import Keyboard
-from TraderBot.Jsons.get_json_data import GetJsonData
-
-categories = GetJsonData.get_json()
 
 
 class NavigationInSellAllItems(Mouse, Keyboard):

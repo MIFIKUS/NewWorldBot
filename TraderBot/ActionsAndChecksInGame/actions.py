@@ -10,8 +10,8 @@ class Actions(Mouse, Keyboard):
         self.press_button('e')
 
     def open_an_auction(self):
-        self.hold_down_button('s', 2)
-        self.hold_down_button('w', 2)
+        self.hold_down_button('s', 1)
+        self.hold_down_button('w', 1)
         self.press_button('e')
 
 

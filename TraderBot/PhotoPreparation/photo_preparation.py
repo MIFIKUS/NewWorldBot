@@ -31,10 +31,10 @@ class PhotoPreparation(Image):
 
     def get_data_from_pictures_and_writing_to_list(self):
         global list_of_values
-        global list_of_uniq_values
+        #global list_of_uniq_values
 
         types_of_viewing = [6, 8, 7, 13]
-        info_diction = {}
+        #info_diction = {}
 
         for i in range(1, self.number_of_entries + 1):
             price = self.image_to_string(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price{i}.png",

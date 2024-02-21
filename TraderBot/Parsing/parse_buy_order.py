@@ -1,23 +1,24 @@
 from MainClasses.MouseAndKeyboard.mouse_actions import Mouse
 from MainClasses.Image.image import Image
+from TraderBot.Preparations.preparing_to_write_to_database import PreparingToWriteToDatabase
 from TraderBot.PhotoPreparation.photo_preparation import PhotoPreparation
 from TraderBot.PhotoPreparation.photo_preparation import list_of_values #, list_of_uniq_values
-from TraderBot.Jsons.get_json_data import GetJsonData
+from TraderBot.Jsons.get_json_data import get_json
 from TraderBot.DataBase.write_to_db import write_to_db
-from TraderBot.NavigationInTheGame.navigation_in_the_characters_menu import NavigationInCharactersMenu
+import TraderBot.shared_variables as shared_variables
 
 import time
+
 
 mouse = Mouse()
 image = Image()
 
 
 class ParseBuyOrder:
-    def __init__(self, need_for_parsing_one_product=False):
-        self.need_for_parsing_one_product = need_for_parsing_one_product
+    def __init__(self):
         self.name_of_category = None
         self.name_of_goods = None
-        self.categories = GetJsonData.get_json()
+        self.categories = get_json()
 
     def get_categories(self):
         time.sleep(1)
@@ -36,14 +37,16 @@ class ParseBuyOrder:
                 for name_of_category, cords_of_category in sub_category_cords.get('categories').items():
                     mouse.move_and_click(cords_of_category[0], cords_of_category[1])
 
-                    self.name_of_category = name_of_category
+                    self.name_of_goods = name_of_category
                     self.check_count_of_goods()
 
                 mouse.move_and_click(260, 310)
+            mouse.move_and_click(260, 310)
 
-        write_to_db.recording_orders(NavigationInCharactersMenu().character_id, 'sell_orders', list_of_values)
+        write_to_db.recording_orders(shared_variables.character_id, 'sell_orders',
+                                     PreparingToWriteToDatabase.preparing_list_for_orders(list_of_values))
 
-    def check_count_of_goods(self):
+    def check_count_of_goods(self, need_for_parsing_one_product=False):
         mouse.move(1800, 288)
         time.sleep(2.2)
         image.take_screenshot("E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\arrow.png",
@@ -55,7 +58,9 @@ class ParseBuyOrder:
         elif 50 <= color[0] <= 90 and 40 <= color[1] <= 80 and 30 <= color[2] <= 65:
             self.parse_if_not_20()
 
-        if self.need_for_parsing_one_product is True:
+        if need_for_parsing_one_product is True:
+            PreparingToWriteToDatabase.preparing_list_for_orders(list_of_values)
+            print(list_of_values)
             return list_of_values
 
     def parse_if_not_20(self):
@@ -108,8 +113,8 @@ class ParseBuyOrder:
                                       (1695, 345 + 77 * product, 1775, 375 + 77 * product))
                 if product == count_of_goods - 1:
                     mouse.move_and_click(260, 310)
-                    write_in_sheets = PhotoPreparation(self.name_of_category, self.name_of_goods, product, True)
-                    write_in_sheets.image_preparation()
+                    photo_preparation = PhotoPreparation(self.name_of_category, self.name_of_goods, product, True)
+                    photo_preparation.image_preparation()
                     break
 
         elif 9 < scroll < 19:
@@ -140,8 +145,8 @@ class ParseBuyOrder:
 
                 if products_after_scrolling == 8:
                     mouse.move_and_click(260, 310)
-                    write_in_sheets = PhotoPreparation(self.name_of_category, self.name_of_goods, scroll, True)
-                    write_in_sheets.image_preparation()
+                    photo_preparation = PhotoPreparation(self.name_of_category, self.name_of_goods, scroll, True)
+                    photo_preparation.image_preparation()
                     break
 
         elif scroll > 18:
@@ -186,8 +191,8 @@ class ParseBuyOrder:
 
         mouse.move_and_click(260, 310)
 
-        write_in_sheets = PhotoPreparation(self.name_of_category, self.name_of_goods, number_of_entries)
-        write_in_sheets.image_preparation()
+        photo_preparation = PhotoPreparation(self.name_of_category, self.name_of_goods, number_of_entries)
+        photo_preparation.image_preparation()
 
 
 parse_buy_order = ParseBuyOrder()

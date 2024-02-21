@@ -1,15 +1,16 @@
 from TraderBot.DataBase.write_to_db import write_to_db
 from TraderBot.Parsing.parse_buy_order import image, mouse
 from TraderBot.PhotoPreparation.photo_preparation import PhotoPreparation, list_of_values
-from TraderBot.Jsons.get_json_data import GetJsonData
-from TraderBot.NavigationInTheGame.navigation_in_the_characters_menu import NavigationInCharactersMenu
+from TraderBot.Preparations.preparing_to_write_to_database import PreparingToWriteToDatabase
+from TraderBot.Jsons.get_json_data import get_json
+import TraderBot.shared_variables as shared_variables
 
 import time
 
 
 class ParseSellOrder:
     def __init__(self):
-        self.categories = GetJsonData.get_json()
+        self.categories = get_json()
 
     def get_categories(self):
         time.sleep(2)
@@ -18,8 +19,6 @@ class ParseSellOrder:
         mouse.move_and_click(670, 230)
         time.sleep(1)
         mouse.move_and_click(140, 670)
-        time.sleep(1)
-        mouse.move_and_click(300, 720)
 
         for i in self.categories.keys():
             category_dict = self.categories.get(i)
@@ -34,8 +33,10 @@ class ParseSellOrder:
                     self.parse_products(sub_category_name, name_of_category)
 
                 mouse.move_and_click(260, 390)
+            mouse.move_and_click(260, 390)
 
-        write_to_db.recording_orders(NavigationInCharactersMenu().character_id, 'buy_orders', list_of_values)
+        write_to_db.recording_orders(shared_variables.character_id, 'buy_orders',
+                                     PreparingToWriteToDatabase.preparing_list_for_orders(list_of_values))
 
     def parse_products(self, main_name, name):
         count_of_goods = 0

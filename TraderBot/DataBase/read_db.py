@@ -28,9 +28,13 @@ class ReadDB(Database):
         purchase_and_sale = self.make_query(f"SELECT * FROM purchase_and_sale where character_id = {character_id};")
         return [[x[2], x[3], x[4], x[5], x[6]] for x in purchase_and_sale]
 
+    def get_transactions_goods(self, character_id):
+        query = self.make_query(f"SELECT * FROM transactions_goods where character_id = {character_id};")
+        return [[x[2], x[3], x[4]] for x in query]
+
 
 read_db = ReadDB()
+#print(read_db.get_transactions_goods(1))
 #print(read_db.switching_between_characters())
 #print(read_db.get_data_from_table_of_orders('1', "sell_orders"))
 #print(read_db.get_data_from_purchase_and_sale(2))
-

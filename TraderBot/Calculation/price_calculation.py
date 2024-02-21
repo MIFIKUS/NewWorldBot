@@ -1,6 +1,6 @@
 from TraderBot.DataBase.write_to_db import write_to_db
 from TraderBot.DataBase.read_db import read_db
-from TraderBot.NavigationInTheGame.navigation_in_the_characters_menu import NavigationInCharactersMenu
+import TraderBot.shared_variables as shared_variables
 
 
 class PriceCalculation:
@@ -8,16 +8,15 @@ class PriceCalculation:
         self.max_price = max_price
         self.percent = percent
 
-    @staticmethod
-    def search_for_optimal_price(name_of_list):
+    def search_for_optimal_price(self, name_of_list):
         counter = 0
         count_of_goods = 0
 
-        list_of_names = [x[1] for x in read_db.get_data_from_table_of_orders(NavigationInCharactersMenu().character_id,
+        list_of_names = [x[1] for x in read_db.get_data_from_table_of_orders(shared_variables.character_id,
                                                                              name_of_list)]
-        list_of_price = [x[2] for x in read_db.get_data_from_table_of_orders(NavigationInCharactersMenu().character_id,
+        list_of_price = [x[2] for x in read_db.get_data_from_table_of_orders(shared_variables.character_id,
                                                                              name_of_list)]
-        list_of_count = [x[3] for x in read_db.get_data_from_table_of_orders(NavigationInCharactersMenu().character_id,
+        list_of_count = [x[3] for x in read_db.get_data_from_table_of_orders(shared_variables.character_id,
                                                                              name_of_list)]
         list_of_values = {}
 
@@ -31,7 +30,7 @@ class PriceCalculation:
                     product = price * amount
                     total_sum += product
 
-                    if total_sum > 1000:
+                    if total_sum > self.max_price:
                         list_of_values.update({list_of_names[count_of_goods]: price})
                         count_of_goods = counter
                         break
@@ -41,14 +40,13 @@ class PriceCalculation:
 
         return list_of_values
 
-    @staticmethod
-    def calculations_for_one_product(price, count):
+    def calculations_for_one_product(self, price, count):
         total_sum = 0
         for elements_of_category in range(len(price)):
             product = price[elements_of_category] * count[elements_of_category]
             total_sum += product
 
-            if total_sum > 1000:
+            if total_sum > self.max_price:
                 return price[elements_of_category] - 0.01
 
     def counting_quantity(self, cost_of_good):
@@ -87,10 +85,12 @@ class PriceCalculation:
         dictionary = [[key, *value] for key, value in characters.items()]
         sorted_data = sorted(dictionary, key=lambda x: x[-1], reverse=True)
 
+        print(sorted_data)
+
         return sorted_data
 
     def record_price_difference_in_table(self):
-        write_to_db.record_purchase_and_sale_prices(NavigationInCharactersMenu().character_id,
+        write_to_db.record_purchase_and_sale_prices(shared_variables.character_id,
                                                     self.calculating_price_difference())
 
 
