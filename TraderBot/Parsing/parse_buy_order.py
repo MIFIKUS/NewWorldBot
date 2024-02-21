@@ -6,7 +6,7 @@ from TraderBot.PhotoPreparation.photo_preparation import list_of_values #, list_
 from TraderBot.Jsons.get_json_data import get_json
 from TraderBot.DataBase.write_to_db import write_to_db
 import TraderBot.shared_variables as shared_variables
-
+from TraderBot.shared_variables import path_to_screenshots
 import time
 
 
@@ -49,9 +49,8 @@ class ParseBuyOrder:
     def check_count_of_goods(self, need_for_parsing_one_product=False):
         mouse.move(1800, 288)
         time.sleep(2.2)
-        image.take_screenshot("E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\arrow.png",
-                              (1803, 226, 1804, 227))
-        color = image.get_main_color("E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\arrow.png")
+        image.take_screenshot(path_to_screenshots + "arrow.png", (1803, 226, 1804, 227))
+        color = image.get_main_color(path_to_screenshots + "arrow.png")
 
         if color == (145, 127, 97):
             self.parse_if_20()
@@ -66,10 +65,8 @@ class ParseBuyOrder:
     def parse_if_not_20(self):
         def check_scrollbar():
             mouse.move(1800, 288)
-            image.take_screenshot("E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\is_there_a_scroll.png",
-                                  (1842, 320, 1848, 338))
-            scroll_color = image.get_main_color(
-                "E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\is_there_a_scroll.png")
+            image.take_screenshot(path_to_screenshots + "is_there_a_scroll.png", (1842, 320, 1848, 338))
+            scroll_color = image.get_main_color(path_to_screenshots + "is_there_a_scroll.png")
 
             if 0 <= scroll_color[0] <= 55 and 0 <= scroll_color[1] <= 55 and 0 <= scroll_color[2] <= 55:
                 return 9
@@ -81,10 +78,8 @@ class ParseBuyOrder:
                 (1841, 895, 1850, 946), (1841, 947, 1850, 1009), (1841, 1010, 1850, 1039))
 
                 for number, i in enumerate(scroll_cords):
-                    image.take_screenshot(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\"
-                                          f"screenshots\\scroll_count.png", i)
-                    scroll_cords_color = image.get_main_color(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\"
-                                                              f"screenshots\\scroll_count.png")
+                    image.take_screenshot(path_to_screenshots + "scroll_count.png", i)
+                    scroll_cords_color = image.get_main_color(path_to_screenshots + "scroll_count.png")
 
                     if 0 <= scroll_cords_color[0] <= 75 and 0 <= scroll_cords_color[1] <= 75 and 0 <= scroll_cords_color[
                         2] <= 75:
@@ -95,21 +90,20 @@ class ParseBuyOrder:
         if scroll == 9:
             count_of_goods = 0
             for count_of_goods in range(10):
-                image.take_screenshot(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\pic{count_of_goods}.png",
+                image.take_screenshot(path_to_screenshots + f"pic{count_of_goods}.png",
                                       (630, 326 + 77 * count_of_goods, 685, 386 + 77 * count_of_goods))
 
                 if (count_of_goods > 0 and
-                        image.matching(
-                            f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\pic{count_of_goods - 1}.png",
-                            f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\pic{count_of_goods}.png")
+                        image.matching(path_to_screenshots + f"pic{count_of_goods - 1}.png",
+                                       path_to_screenshots + f"pic{count_of_goods}.png")
                         is False):
                     count_of_goods = count_of_goods
                     break
             for product in range(count_of_goods):
 
-                image.take_screenshot(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price{product + 1}.png",
+                image.take_screenshot(path_to_screenshots + f"price{product + 1}.png",
                                       (990, 345 + 77 * product, 1130, 375 + 77 * product))
-                image.take_screenshot(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\avail{product + 1}.png",
+                image.take_screenshot(path_to_screenshots + f"avail{product + 1}.png",
                                       (1695, 345 + 77 * product, 1775, 375 + 77 * product))
                 if product == count_of_goods - 1:
                     mouse.move_and_click(260, 310)
@@ -122,10 +116,10 @@ class ParseBuyOrder:
             for item_of_goods in range(scroll):
                 count_of_goods += 1
                 image.take_screenshot(
-                    f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price{count_of_goods}.png",
+                    path_to_screenshots + f"price{count_of_goods}.png",
                     (990, 345 + 77 * item_of_goods, 1130, 375 + 77 * item_of_goods))
                 image.take_screenshot(
-                    f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\avail{count_of_goods}.png",
+                    path_to_screenshots + f"avail{count_of_goods}.png",
                     (1695, 345 + 77 * item_of_goods, 1775, 375 + 77 * item_of_goods))
                 if item_of_goods == 8:
                     mouse.scroll_down_cords(2000)
@@ -137,10 +131,10 @@ class ParseBuyOrder:
                     count_of_goods += 1
 
                     image.take_screenshot(
-                        f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price{count_of_goods}.png",
+                        path_to_screenshots + f"price{count_of_goods}.png",
                         (990, 380 + 77 * products_after_scrolling, 1130, 415 + 77 * products_after_scrolling))
                     image.take_screenshot(
-                        f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\avail{count_of_goods}.png",
+                        path_to_screenshots + f"avail{count_of_goods}.png",
                         (1695, 380 + 77 * products_after_scrolling, 1775, 415 + 77 * products_after_scrolling))
 
                 if products_after_scrolling == 8:
@@ -160,9 +154,9 @@ class ParseBuyOrder:
             if a < 2:
                 for i in range(9):
                     num += 1
-                    image.take_screenshot(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price{num}.png",
+                    image.take_screenshot(path_to_screenshots + f"price{num}.png",
                                           (990, 345 + 77 * i, 1130, 380 + 77 * i))
-                    image.take_screenshot(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\avail{num}.png",
+                    image.take_screenshot(path_to_screenshots + f"avail{num}.png",
                                           (1695, 345 + 77 * i, 1775, 380 + 77 * i))
 
                     if i == 8 and cycle == 0:
@@ -183,10 +177,10 @@ class ParseBuyOrder:
                         mouse.scroll_down(5)
                         time.sleep(1)
                         image.take_screenshot(
-                            f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price{num}.png",
+                            path_to_screenshots + f"price{num}.png",
                             (980, 920 + 77 * b, 1140, 945 + 77 * b))
                         image.take_screenshot(
-                            f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\avail{num}.png",
+                            path_to_screenshots + f"avail{num}.png",
                             (1685, 920 + 77 * b, 1785, 945 + 77 * b))
 
         mouse.move_and_click(260, 310)

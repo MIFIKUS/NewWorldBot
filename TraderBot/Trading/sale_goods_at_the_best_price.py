@@ -8,6 +8,7 @@ from TraderBot.NavigationInTheGame.navigation_in_the_buy_tab import navigation_i
 from TraderBot.Parsing.parse_inventory import parse_inventory
 from TraderBot.Parsing.parse_buy_order import parse_buy_order
 from TraderBot.DataBase.read_db import read_db
+from TraderBot.shared_variables import path_to_screenshots
 import TraderBot.shared_variables as shared_variables
 
 
@@ -93,8 +94,8 @@ class SaleGoodsAtTheBestPrice:
 
     def scan_price_and_amount(self):
         time.sleep(1)
-        price_path = "E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price_for_sale.png"
-        amount_path = "E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\amount_for_sale.png"
+        price_path = path_to_screenshots + "price_for_sale.png"
+        amount_path = path_to_screenshots + "amount_for_sale.png"
 
         parse_inventory.take_screenshot(price_path, (1293, 359, 1363, 383))
         parse_inventory.take_screenshot(amount_path, (1379, 362, 1439, 380))

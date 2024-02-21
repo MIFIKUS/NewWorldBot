@@ -1,4 +1,5 @@
 from MainClasses.GoogleSheets.google_sheets import GoogleSheets
+from TraderBot.shared_variables import path_to_screenshots
 from MainClasses.Image.image import Image
 
 
@@ -19,13 +20,13 @@ class PhotoPreparation(Image):
 
         for i in range(1, self.number_of_entries + 1):
 
-            self.delete_all_colors_except_one(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price{i}.png",
+            self.delete_all_colors_except_one(path_to_screenshots + f"price{i}.png",
                                               [51, 41, 24], [191, 181, 165])
-            self.delete_all_colors_except_one(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\avail{i}.png",
+            self.delete_all_colors_except_one(path_to_screenshots + f"avail{i}.png",
                                               [51, 41, 24], [191, 181, 165])
 
-            self.upscale_image(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price{i}.png", 2)
-            self.upscale_image(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\avail{i}.png", 2)
+            self.upscale_image(path_to_screenshots + f"price{i}.png", 2)
+            self.upscale_image(path_to_screenshots + f"avail{i}.png", 2)
 
         self.get_data_from_pictures_and_writing_to_list()
 
@@ -37,15 +38,15 @@ class PhotoPreparation(Image):
         #info_diction = {}
 
         for i in range(1, self.number_of_entries + 1):
-            price = self.image_to_string(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price{i}.png",
+            price = self.image_to_string(path_to_screenshots + f"price{i}.png",
                                          True)
-            avail = self.image_to_string(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\avail{i}.png",
+            avail = self.image_to_string(path_to_screenshots + f"avail{i}.png",
                                          True)
 
             if len(price) == 0:
                 for installation in types_of_viewing:
                     price = self.image_to_string_custom_confing(
-                            f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price{i}.png",
+                            path_to_screenshots + f"price{i}.png",
                             f'--psm {installation} -c tessedit_char_whitelist=0123456789/,.')
                     if len(price) > 0:
                         break
@@ -53,7 +54,7 @@ class PhotoPreparation(Image):
             if len(avail) == 0:
                 for installation in types_of_viewing:
                     avail = self.image_to_string_custom_confing(
-                        f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\avail{i}.png",
+                        path_to_screenshots + f"avail{i}.png",
                         f'--psm {installation} -c tessedit_char_whitelist=0123456789/,.')
                     if len(avail) > 0:
                         break

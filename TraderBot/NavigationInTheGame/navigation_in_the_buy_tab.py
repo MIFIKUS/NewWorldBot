@@ -1,8 +1,9 @@
 from MainClasses.MouseAndKeyboard.mouse_actions import Mouse
 from MainClasses.MouseAndKeyboard.keyboard_actions import Keyboard
+from TraderBot.shared_variables import path_to_json
 import json
 
-with open("E:\\projects\\NewWorldBot\\TraderBot\\Jsons\\cords_of_all_categories.json", 'r', encoding='utf-8') as data:
+with open(path_to_json + "cords_of_all_categories.json", 'r', encoding='utf-8') as data:
     categories = json.load(data)
 
 

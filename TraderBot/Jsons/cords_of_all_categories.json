@@ -2,18 +2,6 @@
 "Raw Resources": {
     "main category cords": [220,370],
     "category_of_goods": {
-      "Woods": {
-        "cords": [
-          220,
-          440
-        ],
-        "categories": {
-          "Green Wood": [
-            220,
-            440
-          ]
-        }
-      },
       "Fibers": {
         "cords": [
           220,

@@ -1,10 +1,11 @@
 from MainClasses.GoogleSheets.google_sheets import GoogleSheets
+from TraderBot.shared_variables import path_to_services_files
 
 
 class GetInfo(GoogleSheets):
     """"""
     def __init__(self, SPREADSHEET_URL="https://docs.google.com/spreadsheets/d/1nFUIPW6nUTc5CfMroHsCCKzlOG4-9rEZGVmSHc9zMog/edit#gid=0",
-                 credentials="E:\\projects\\NewWorldBot\\services_files\\credentials.json",
+                 credentials=path_to_services_files + "credentials.json",
                  num_of_sheet=0):
         super().__init__(SPREADSHEET_URL, credentials, num_of_sheet)
 

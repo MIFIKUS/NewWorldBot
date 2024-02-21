@@ -22,7 +22,7 @@ class StartupCluster:
     def part_of_purchase(self, hwnd):
         self.moving_between_characters(self.script_for_purchase)
 
-    def part_of_sale(self, hwnd):
+    def part_of_sale(self):
         self.moving_between_characters(self.script_for_sale)
 
     def script_for_purchase(self):
@@ -59,7 +59,7 @@ class StartupCluster:
         price_calculation.record_price_difference_in_table()
         purchasing.search_for_buy_button(price_calculation.calculating_price_difference())
 
-    def sale(self, hwnd):
+    def sale(self):
         sale_goods_at_the_best_price = SaleGoodsAtTheBestPrice()
         sale_goods_at_the_best_price.quantity_comparison()
 
@@ -68,7 +68,9 @@ startup_cluster = StartupCluster(poverty_threshold)
 
 #write_to_db.delete_all_orders()
 #write_to_db.delete_character_positions(3, 'purchase_and_sale')
-windows.switch_windows(startup_cluster.sale)
-#for _ in range(2):
-#    startup_cluster.part_of_sale()
+while True:
+    write_to_db.delete_all_orders()
+    windows.switch_windows(startup_cluster.part_of_purchase)
+    for _ in range(2):
+        startup_cluster.part_of_sale()
 

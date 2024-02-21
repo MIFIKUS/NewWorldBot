@@ -28,8 +28,6 @@ class Windows:
 
                 func(window)
 
-
-
     def __find_windows(self):
         def __is_toplevel(hwnd):
             return win32gui.GetParent(hwnd) == 0 and win32gui.IsWindowVisible(hwnd)

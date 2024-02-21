@@ -1,5 +1,6 @@
 import telebot
 
+
 class Telegram:
     """Класс для работы с тг"""
     def __init__(self):

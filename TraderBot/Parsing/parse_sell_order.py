@@ -3,6 +3,7 @@ from TraderBot.Parsing.parse_buy_order import image, mouse
 from TraderBot.PhotoPreparation.photo_preparation import PhotoPreparation, list_of_values
 from TraderBot.Preparations.preparing_to_write_to_database import PreparingToWriteToDatabase
 from TraderBot.Jsons.get_json_data import get_json
+from TraderBot.shared_variables import path_to_screenshots
 import TraderBot.shared_variables as shared_variables
 
 import time
@@ -42,21 +43,21 @@ class ParseSellOrder:
         count_of_goods = 0
         time.sleep(2.5)
         for count_of_goods in range(10):
-            image.take_screenshot(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\pic{count_of_goods}.png",
+            image.take_screenshot(path_to_screenshots + f"pic{count_of_goods}.png",
                                   (630, 385 + 77 * count_of_goods, 685, 435 + 77 * count_of_goods))
 
             if (count_of_goods > 0 and
                     image.matching(
-                        f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\pic{count_of_goods - 1}.png",
-                        f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\pic{count_of_goods}.png")
+                        path_to_screenshots + f"pic{count_of_goods - 1}.png",
+                        path_to_screenshots + f"pic{count_of_goods}.png")
                     is False):
                 count_of_goods = count_of_goods
                 break
         for product in range(count_of_goods):
 
-            image.take_screenshot(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\price{product + 1}.png",
+            image.take_screenshot(path_to_screenshots + f"price{product + 1}.png",
                                   (990, 385 + 77 * product, 1130, 435 + 77 * product))
-            image.take_screenshot(f"E:\\projects\\NewWorldBot\\TraderBot\\images\\screenshots\\avail{product + 1}.png",
+            image.take_screenshot(path_to_screenshots + f"avail{product + 1}.png",
                                   (1680, 385 + 77 * product, 1750, 435 + 77 * product))
 
             if product == count_of_goods - 1:

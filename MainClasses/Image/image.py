@@ -1,10 +1,11 @@
 from PIL import Image as pil
+from TraderBot.shared_variables import path_to_pytesseract
 import PIL.ImageGrab
 import numpy as np
 import cv2
 import pytesseract
 
-pytesseract.pytesseract.tesseract_cmd = r"E:\programs\teseract\tesseract.exe"
+pytesseract.pytesseract.tesseract_cmd = path_to_pytesseract
 
 
 class Image:
