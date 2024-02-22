@@ -31,6 +31,9 @@ class PreparingToWriteToDatabase:
         if list_of_orders[-1][2] == '' or list_of_orders[-1][3] == '':
             del list_of_orders[-1]
 
+        if list_of_orders[0][2] == '' or list_of_orders[0][3] == '':
+            del list_of_orders[0]
+
         return list_of_orders
 
 

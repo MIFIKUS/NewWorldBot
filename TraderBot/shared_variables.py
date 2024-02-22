@@ -1,4 +1,4 @@
-character_id = 7
+character_id = None
 checking_for_beggar = True
 balance_of_beggar = None
 max_price = 1000

@@ -1,3 +1,5 @@
+import time
+
 from Calculation.price_calculation import PriceCalculation
 from TraderBot.DataBase.write_to_db import write_to_db
 from Trading.purchasing_goods_at_the_best_price import PurchasingGoodsAtTheBestPrice
@@ -48,10 +50,17 @@ class StartupCluster:
     def parsing(self):
         from Parsing.parse_buy_order import parse_buy_order
         from Parsing.parse_sell_order import parse_sell_order
-        parse_buy_order.get_categories()
-        actions.bypass_afk()
-        parse_sell_order.get_categories()
-        actions.bypass_afk()
+        try:
+            parse_buy_order.get_categories()
+            actions.bypass_afk()
+            parse_sell_order.get_categories()
+            actions.bypass_afk()
+        except ValueError:
+            write_to_db.delete_all_orders()
+            parse_buy_order.get_categories()
+            actions.bypass_afk()
+            parse_sell_order.get_categories()
+            actions.bypass_afk()
 
     def buy(self):
         price_calculation = PriceCalculation(max_price, percent)
@@ -68,9 +77,10 @@ startup_cluster = StartupCluster(poverty_threshold)
 
 #write_to_db.delete_all_orders()
 #write_to_db.delete_character_positions(3, 'purchase_and_sale')
-while True:
-    write_to_db.delete_all_orders()
-    windows.switch_windows(startup_cluster.part_of_purchase)
-    for _ in range(2):
-        startup_cluster.part_of_sale()
+
+write_to_db.delete_all_orders()
+windows.switch_windows(startup_cluster.part_of_purchase)
+for _ in range(3):
+    startup_cluster.part_of_sale()
+    time.sleep(360)
 

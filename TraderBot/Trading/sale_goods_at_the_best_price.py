@@ -74,7 +74,6 @@ class SaleGoodsAtTheBestPrice:
 
     def selling_by_occult_means(self, name, quantity, current_price):
         required_amount = float(check.check_balance_in_order(default_area_of_screenshot=(732, 845, 840, 880)))
-        print(required_amount)
         navigation_in_the_buy.move_and_click(1639, 71)
 
         inventory = parse_inventory.converting_images_to_strings()

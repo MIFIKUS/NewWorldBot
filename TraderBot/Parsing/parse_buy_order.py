@@ -59,7 +59,6 @@ class ParseBuyOrder:
 
         if need_for_parsing_one_product is True:
             PreparingToWriteToDatabase.preparing_list_for_orders(list_of_values)
-            print(list_of_values)
             return list_of_values
 
     def parse_if_not_20(self):
@@ -99,6 +98,7 @@ class ParseBuyOrder:
                         is False):
                     count_of_goods = count_of_goods
                     break
+
             for product in range(count_of_goods):
 
                 image.take_screenshot(path_to_screenshots + f"price{product + 1}.png",

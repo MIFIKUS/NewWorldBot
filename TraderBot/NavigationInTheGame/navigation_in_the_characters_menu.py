@@ -34,11 +34,7 @@ class NavigationInCharactersMenu(Mouse, Keyboard):
     def character_buster(self, function):
         cords = read_db.switching_between_characters()
 
-        for i in cords[5:]:
-
-            if i[0] == 5:
-                continue
-
+        for i in cords:
             self._click_to_server_menu()
             time.sleep(15)
 
