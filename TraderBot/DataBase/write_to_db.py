@@ -43,7 +43,7 @@ class WriteToDB(Database):
         self.make_query("DELETE FROM sell_orders;")
         self.make_query("DELETE FROM buy_orders;")
         self.make_query("DELETE FROM purchase_and_sale;")
-        self.make_query("DELETE FROM transactions_goods;")
+        self.make_query("DELETE FROM transactions_goods WHERE how_many_bought_it <= how_many_were_sold;")
 
     def delete_character_positions(self, character_id, table_name):
         self.make_query(f"delete FROM {table_name} where character_id = {character_id};")

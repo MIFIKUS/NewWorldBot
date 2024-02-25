@@ -51,7 +51,7 @@ class PriceCalculation:
 
     def counting_quantity(self, cost_of_good):
         number_of_multiplications = self.max_price / cost_of_good
-        quantity = number_of_multiplications - (number_of_multiplications / 100) * 2.5 - 1
+        quantity = number_of_multiplications - (number_of_multiplications / 100) * 3 - 1
 
         return quantity
 

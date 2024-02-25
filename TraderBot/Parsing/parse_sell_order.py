@@ -10,10 +10,9 @@ import time
 
 
 class ParseSellOrder:
-    def __init__(self):
-        self.categories = get_json()
 
     def get_categories(self):
+        categories = get_json()
         time.sleep(2)
         mouse.move_and_click(570, 150)
         time.sleep(1)
@@ -21,8 +20,8 @@ class ParseSellOrder:
         time.sleep(1)
         mouse.move_and_click(140, 670)
 
-        for i in self.categories.keys():
-            category_dict = self.categories.get(i)
+        for i in categories.keys():
+            category_dict = categories.get(i)
             category_cords = category_dict.get("main category cords")
             mouse.move_and_click(category_cords[0], category_cords[1] + 65)
             sub_categories = category_dict.get("category_of_goods")
@@ -31,6 +30,11 @@ class ParseSellOrder:
                 for name_of_category, cords_of_category in sub_category_cords.get('categories').items():
                     mouse.move_and_click(cords_of_category[0], cords_of_category[1] + 65)
 
+                    time.sleep(2.3)
+                    if self.check_for_availability_of_goods() is False:
+                        mouse.move_and_click(260, 390)
+                        continue
+
                     self.parse_products(sub_category_name, name_of_category)
 
                 mouse.move_and_click(260, 390)
@@ -38,6 +42,13 @@ class ParseSellOrder:
 
         write_to_db.recording_orders(shared_variables.character_id, 'buy_orders',
                                      PreparingToWriteToDatabase.preparing_list_for_orders(list_of_values))
+
+    def check_for_availability_of_goods(self):
+        image.take_screenshot(shared_variables.path_to_screenshots + 'refresh.png', (1218, 714, 1219, 722))
+        a = image.get_main_color(shared_variables.path_to_screenshots + 'refresh.png')
+        if a[0] > 85 and a[1] > 85 and a[2] > 85:
+            return False
+        return True
 
     def parse_products(self, main_name, name):
         count_of_goods = 0

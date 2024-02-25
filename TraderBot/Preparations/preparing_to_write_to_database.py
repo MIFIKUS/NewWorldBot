@@ -7,7 +7,7 @@ class PreparingToWriteToDatabase:
         count = 0
 
         for i in list_of_orders:
-            list_of_orders[count_for_count][3].replace('.', '')
+            list_of_orders[count_for_count][3] = list_of_orders[count_for_count][3].replace('.', '')
             if not i[3].replace('\n', '').isdigit():
                 del list_of_orders[count_for_count]
             count_for_count += 1
@@ -28,11 +28,12 @@ class PreparingToWriteToDatabase:
                         del list_of_orders[count]
             count += 1
 
-        if list_of_orders[-1][2] == '' or list_of_orders[-1][3] == '':
-            del list_of_orders[-1]
+        for i in range(len(list_of_orders) - 1):
+            if list_of_orders[i][2].count('.') > 1:
+                list_of_orders[i][2] = '.'.join(list_of_orders[i][2].split('.')[:2])
 
-        if list_of_orders[0][2] == '' or list_of_orders[0][3] == '':
-            del list_of_orders[0]
+            if list_of_orders[i][2] == '' or list_of_orders[i][3] == '':
+                del list_of_orders[i]
 
         return list_of_orders
 

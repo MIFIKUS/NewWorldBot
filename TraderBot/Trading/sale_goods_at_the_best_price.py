@@ -82,17 +82,47 @@ class SaleGoodsAtTheBestPrice:
         navigation_in_the_buy.move_and_click(500, y_cords_of_goods)
         time.sleep(1.5)
 
-        navigation_in_the_buy.move_and_click(1692, 622)
-
         scan = self.scan_price_and_amount()
         price = scan[0]
         amount = scan[1]
 
         if price * amount >= required_amount:
-            self.sale_of_product_itself(y_cords_of_goods, quantity - self.buying_missing_money(required_amount, price), current_price)
+            self.sale_of_product_itself(y_cords_of_goods, quantity - self.buying_missing_money(required_amount, price),
+                                        current_price)
 
-    def scan_price_and_amount(self):
+        elif price * amount < required_amount:
+            scan1 = self.scan_inventory_orders(required_amount)
+            price = scan1[0]
+            amount = scan1[1]
+
+            if price is None and amount is None:
+                pass
+            else:
+                self.sale_of_product_itself(y_cords_of_goods,
+                                            quantity - self.buying_missing_money(required_amount, price),
+                                            current_price)
+
+    def scan_inventory_orders(self, required_amount):
+        navigation_in_the_buy.move_and_click(1727, 150)
         time.sleep(1)
+        for i in range(8):
+            parse_inventory.take_screenshot(path_to_screenshots + f'check_sale_button{i}.png', (1618, 603 + 57 * i, 1763, 639 + 57 * i))
+            price_and_amount = self.scan_price_and_amount(default_cords=[1622, 625 + 57 * i])
+            if price_and_amount[0] * price_and_amount[1] >= required_amount:
+                return price_and_amount[0], price_and_amount[1]
+
+            if (i > 0 and
+                    parse_inventory.matching(
+                        path_to_screenshots + f"check_sale_button{i - 1}.png",
+                        path_to_screenshots + f"check_sale_button{i}.png")
+                    is False):
+                return None, None
+
+    def scan_price_and_amount(self, default_cords=[1622, 625]):
+        navigation_in_the_buy.move_and_click(default_cords[0], default_cords[1])
+
+        time.sleep(1.7)
+
         price_path = path_to_screenshots + "price_for_sale.png"
         amount_path = path_to_screenshots + "amount_for_sale.png"
 
@@ -119,7 +149,7 @@ class SaleGoodsAtTheBestPrice:
         navigation_in_the_buy.type(str(amount))
         navigation_in_the_buy.move_and_click(1160, 856)
 
-        time.sleep(1.5)
+        time.sleep(2.1)
 
         return amount
 

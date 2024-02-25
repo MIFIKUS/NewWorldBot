@@ -33,7 +33,7 @@ class ParseInventory(Image):
             self.delete_all_colors_except_one(path_to_screenshots + f"name{position}.png",
                                               [60, 60, 60], [191, 181, 175])
             self.delete_all_colors_except_one(path_to_screenshots + f"avail{position}.png",
-                                              [65, 65, 65], [196, 186, 171])
+                                              [60, 60, 60], [198, 189, 176])
 
             name = self.image_to_string(path_to_screenshots + f"name{position}.png",
                                         False)
